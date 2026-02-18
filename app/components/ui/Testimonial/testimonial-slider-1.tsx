@@ -58,8 +58,14 @@ export const TestimonialSlider = ({
     resetAutoplay();
   };
 
-  // Get the next 3 reviews for the thumbnails, excluding the current one
-  const thumbnailReviews = reviews.filter((_, i) => i !== currentIndex).slice(0, 3);
+const thumbnailReviews =
+  reviews.length > 0
+    ? Array.from({ length: Math.min(3, reviews.length - 1) }, (_, i) => {
+        const index =
+          (currentIndex - (i + 1) + reviews.length) % reviews.length;
+        return reviews[index];
+      })
+    : [];
 
   function stopAutoplay() {
     if (intervalRef.current) {
@@ -200,7 +206,16 @@ export const TestimonialSlider = ({
         {/* === Right Column: Text and Navigation === */}
         <div className="md:col-span-5 flex flex-col justify-between md:pl-8 order-3 md:order-3">
           {/* Text Content */}
-          <div className="relative overflow-hidden pt-4 md:pt-24 min-h-50">
+          <div 
+           onMouseEnter={() => {
+            setIsPaused(true);
+            stopAutoplay();
+          }}
+          onMouseLeave={() => {
+            setIsPaused(false);
+            startAutoplay();
+          }}
+          className="relative overflow-hidden pt-4 md:pt-24 min-h-50">
             <AnimatePresence initial={false} custom={direction} mode="wait">
               <motion.div
                 key={currentIndex}
@@ -218,7 +233,7 @@ export const TestimonialSlider = ({
                 <blockquote className="mt-6 text-2xl md:text-3xl font-medium leading-snug">
                   "{showFull || !activeReview?.text
                     ? activeReview?.text
-                    : activeReview?.text?.slice(0, 240) + (activeReview?.text.length > 240 ? "..." : "")}
+                    : activeReview?.text?.slice(0, 200) + (activeReview?.text.length > 240 ? "..." : "")}
                   "
                 </blockquote>
 
@@ -258,7 +273,7 @@ export const TestimonialSlider = ({
                         {activeReview.outcomes.map((item, idx) => (
                           <div
                             key={idx}
-                            className="cursor-pointer flex flex-col items-center flex-shrink-0 group"
+                            className="cursor-pointer flex flex-col items-center shrink-0 group"
                           >
                             <img
                               src={item.image}
