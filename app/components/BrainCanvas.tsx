@@ -1,11 +1,17 @@
 'use client'
 
-import { Suspense, useMemo, useRef, useEffect } from 'react'
-import { Canvas, useFrame, useThree, extend } from '@react-three/fiber'
+import { Suspense, useRef, useEffect } from 'react'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Center, Environment, OrbitControls, useGLTF } from '@react-three/drei'
+import { brainScrollState } from './brainScrollState'
+import { heroLoadState } from './heroLoadState'
+// @ts-expect-error - three.js module declaration
 import * as THREE from 'three'
+// @ts-expect-error - three.js postprocessing modules
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
+// @ts-expect-error - three.js postprocessing modules
 import { EffectComposer as ThreeEffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
+// @ts-expect-error - three.js postprocessing modules
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 
 const HalftoneShader = {
@@ -97,7 +103,7 @@ function HalftonePostProcessing({
         }
       }
     }
-  }, [size])
+  }, [size, gl])
 
   useFrame(() => {
     if (composerRef.current) {
@@ -116,13 +122,34 @@ function BrainModel({
   scale?: number
 }) {
   const { scene } = useGLTF('/3dModels/brain.glb')
-  const brainScene = useMemo(() => scene.clone(), [scene])
+  const brainGroupRef = useRef<THREE.Group>(null)
+  const currentX = useRef(0.4)
+  const readyFired = useRef(false)
 
   useFrame((_, delta) => {
-    brainScene.rotation.y += rotationSpeed * delta
+    if (!brainGroupRef.current) return
+    brainGroupRef.current.rotation.y += rotationSpeed * delta
+
+    const t = Math.min(brainScrollState.scrollPx / 180, 1)
+    const targetX = 0.4 * (1 - t)
+    currentX.current += (targetX - currentX.current) * Math.min(delta * 8, 1)
+    brainGroupRef.current.position.x = currentX.current
+
+    // Signal ready on first rendered frame after GLTF resolves
+    if (!readyFired.current) {
+      readyFired.current = true
+      heroLoadState.setReady()
+    }
   })
 
-  return <primitive object={brainScene} dispose={null} scale={scale} />
+  return (
+    <primitive
+      ref={brainGroupRef}
+      object={scene}
+      dispose={null}
+      scale={scale}
+    />
+  )
 }
 
 export default function BrainCanvas({
@@ -139,7 +166,7 @@ export default function BrainCanvas({
       <ambientLight intensity={0.6} />
       <directionalLight position={[5, 5, 5]} intensity={0.8} />
       <Suspense fallback={null}>
-        <group position={[0.4, 0.2, 0]}>
+        <group position={[0, 0.2, 0]}>
           <Center>
             <BrainModel rotationSpeed={rotationSpeed} scale={modelScale} />
           </Center>
