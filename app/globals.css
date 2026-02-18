@@ -50,3 +50,11 @@ body {
   font-family:
     var(--font-inter), var(--font-satoshi), Arial, Helvetica, sans-serif;
 }
+
+
+.bg-grid {
+  background-image: 
+    linear-gradient(to right, #0000 1px, transparent 1px),
+    linear-gradient(to bottom, #0000 1px, transparent 1px);
+  background-size: 80px 80px; /* Bigger squares */
+}
