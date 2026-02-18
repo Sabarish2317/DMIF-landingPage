@@ -3,6 +3,8 @@ import TopNav from '@/app/components/TopNav'
 import HeroSection from './sections/HeroSection'
 import AboutDMIF from './sections/AboutDMIF'
 import HeroLoader from './HeroLoader'
+import DiscoverInstituteSection from './sections/DiscoverInstituteSection'
+import Testimonial from './sections/Testimonial'
 
 export default function LandingPage() {
   return (
@@ -13,7 +15,8 @@ export default function LandingPage() {
         <TopNav />
         <HeroSection />
         <AboutDMIF />
-        <AboutDMIF />
+        <DiscoverInstituteSection/>
+        <Testimonial/>
       </Suspense>
     </main>
   )
