@@ -1,24 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "./button";
+import type { TestimonialItem } from "../../TestimonialData";
 
 // Define the type for a single review
-type Review = {
-  id: string | number;
-  name: string;
-  affiliation: string;
-  quote: string;
-  imageSrc: string;
-  thumbnailSrc: string;
-};
-
-// Define the props for the slider component
+// Use the shared `TestimonialItem` type coming from TestimonialData
 interface TestimonialSliderProps {
-  reviews: Review[];
+  reviews: TestimonialItem[];
   /** Optional class name for the container */
   className?: string;
 }
@@ -35,29 +27,72 @@ export const TestimonialSlider = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   // 'direction' helps framer-motion understand slide direction (next vs. prev)
   const [direction, setDirection] = useState<"left" | "right">("right");
+  const [isPaused, setIsPaused] = useState(false);
+  const [showFull, setShowFull] = useState(false);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const AUTOPLAY_DELAY = 5000;
 
-  const activeReview = reviews[currentIndex];
+  const activeReview = reviews.length > 0 ? reviews[currentIndex] : undefined;
 
   const handleNext = () => {
+    if (reviews.length === 0) return;
     setDirection("right");
     setCurrentIndex((prev) => (prev + 1) % reviews.length);
+    // reset autoplay when user manually navigates
+    resetAutoplay();
   };
 
   const handlePrev = () => {
+    if (reviews.length === 0) return;
     setDirection("left");
     setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
+    // reset autoplay when user manually navigates
+    resetAutoplay();
   };
 
   const handleThumbnailClick = (index: number) => {
     // Determine direction for animation
     setDirection(index > currentIndex ? "right" : "left");
     setCurrentIndex(index);
+    // reset autoplay when user manually navigates
+    resetAutoplay();
   };
 
   // Get the next 3 reviews for the thumbnails, excluding the current one
-  const thumbnailReviews = reviews
-    .filter((_, i) => i !== currentIndex)
-    .slice(0, 3);
+  const thumbnailReviews = reviews.filter((_, i) => i !== currentIndex).slice(0, 3);
+
+  function stopAutoplay() {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current as any);
+      intervalRef.current = null;
+    }
+  }
+
+  function startAutoplay() {
+    stopAutoplay();
+    if (reviews.length === 0) return;
+    intervalRef.current = setInterval(() => {
+      setDirection("right");
+      setCurrentIndex((prev) => (prev + 1) % reviews.length);
+    }, AUTOPLAY_DELAY);
+  }
+
+  function resetAutoplay() {
+    stopAutoplay();
+    startAutoplay();
+  }
+
+  // start/stop autoplay when reviews change or pause state changes
+  useEffect(() => {
+    if (!isPaused) startAutoplay();
+    return () => stopAutoplay();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reviews, isPaused]);
+
+  // reset showFull whenever the active review changes
+  useEffect(() => {
+    setShowFull(false);
+  }, [currentIndex]);
 
   // Animation variants for the main image
   const imageVariants = {
@@ -88,7 +123,7 @@ export const TestimonialSlider = ({
   return (
     <div
       className={cn(
-        "relative w-full min-h-[650px] md:min-h-[600px] overflow-hidden bg-background text-foreground p-8 md:p-12",
+        "relative w-full min-h-162.5 md:min-h-150 overflow-hidden bg-background text-foreground p-8 md:p-12",
         className
       )}
     >
@@ -121,11 +156,11 @@ export const TestimonialSlider = ({
                   className="overflow-hidden rounded-md w-16 h-20 md:w-20 md:h-24 opacity-70 hover:opacity-100 transition-opacity duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
                   aria-label={`View review from ${review.name}`}
                 >
-                  <img
-                    src={review.thumbnailSrc}
-                    alt={review.name}
-                    className="w-full h-full object-cover"
-                  />
+                    <img
+                      src={review.image || ""}
+                      alt={review.name}
+                      className="w-full h-full object-cover"
+                    />
                 </button>
               );
             })}
@@ -133,27 +168,39 @@ export const TestimonialSlider = ({
         </div>
 
         {/* === Center Column: Main Image === */}
-        <div className="md:col-span-4 relative h-80 min-h-[400px] md:min-h-[500px] order-1 md:order-2">
+        <div
+          className="md:col-span-4 relative h-80 min-h-100 md:min-h-125 order-1 md:order-2"
+          onMouseEnter={() => {
+            setIsPaused(true);
+            stopAutoplay();
+          }}
+          onMouseLeave={() => {
+            setIsPaused(false);
+            startAutoplay();
+          }}
+        >
           <AnimatePresence initial={false} custom={direction}>
-            <motion.img
-              key={currentIndex}
-              src={activeReview.imageSrc}
-              alt={activeReview.name}
-              custom={direction}
-              variants={imageVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }} // Cubic bezier for smooth ease
-              className="absolute inset-0 w-full h-full object-cover rounded-lg"
-            />
+            {activeReview && (
+              <motion.img
+                key={currentIndex}
+                src={activeReview.image}
+                alt={activeReview.name}
+                custom={direction}
+                variants={imageVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+                className="absolute inset-0 w-full h-full object-cover rounded-lg"
+              />
+            )}
           </AnimatePresence>
         </div>
 
         {/* === Right Column: Text and Navigation === */}
         <div className="md:col-span-5 flex flex-col justify-between md:pl-8 order-3 md:order-3">
           {/* Text Content */}
-          <div className="relative overflow-hidden pt-4 md:pt-24 min-h-[200px]">
+          <div className="relative overflow-hidden pt-4 md:pt-24 min-h-50">
             <AnimatePresence initial={false} custom={direction} mode="wait">
               <motion.div
                 key={currentIndex}
@@ -165,14 +212,66 @@ export const TestimonialSlider = ({
                 transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
               >
                 <p className="text-sm text-[#FD4F0C] font-medium ">
-                  {activeReview.affiliation}
+                  {activeReview?.position ?? activeReview?.patent ?? ""}
                 </p>
-                <h3 className="text-xl font-semibold mt-1">
-                  {activeReview.name}
-                </h3>
+                <h3 className="text-xl font-semibold mt-1">{activeReview?.name}</h3>
                 <blockquote className="mt-6 text-2xl md:text-3xl font-medium leading-snug">
-                  "{activeReview.quote}"
+                  "{showFull || !activeReview?.text
+                    ? activeReview?.text
+                    : activeReview?.text?.slice(0, 240) + (activeReview?.text.length > 240 ? "..." : "")}
+                  "
                 </blockquote>
+
+                {activeReview?.text && activeReview.text.length > 240 && (
+                  <button
+                    className="mt-2 text-sm text-[#FD4F0C] underline"
+                    onClick={() => {
+  setShowFull((s) => {
+    const next = !s;
+
+    if (next) {
+      // If expanding → stop autoplay
+      setIsPaused(true);
+      stopAutoplay();
+    } else {
+      // If collapsing → resume autoplay
+      setIsPaused(false);
+      startAutoplay();
+    }
+
+    return next;
+  });
+}}
+
+                    aria-expanded={showFull}
+                  >
+                    {showFull ? "See less" : "See more"}
+                  </button>
+                )}
+
+                {activeReview?.outcomes && activeReview.outcomes.length > 0 && (
+                  <div className="mt-6">
+                    <p className="mb-2 font-medium">Outcomes</p>
+
+                    <div className="overflow-x-auto">
+                      <div className="flex gap-4 pb-2">
+                        {activeReview.outcomes.map((item, idx) => (
+                          <div
+                            key={idx}
+                            className="cursor-pointer flex flex-col items-center flex-shrink-0 group"
+                          >
+                            <img
+                              src={item.image}
+                              alt={item.label}
+                              className="h-16 w-16 object-cover rounded-md shadow-md group-hover:opacity-80 transition"
+                            />
+                            <span className="text-xs mt-1">{item.label}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </motion.div>
             </AnimatePresence>
           </div>
