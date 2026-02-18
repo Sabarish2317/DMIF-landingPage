@@ -47,7 +47,7 @@ export default function DiscoverInstituteSection() {
 
       {/* ================= ORANGE HEADER ================= */}
       <div
-        className="relative text-white text-center px-6 pt-14 pb-40 md:pb-76"
+        className="relative text-white text-center px-6 pt-14 pb-30 md:pb-76"
         style={{
           backgroundColor: "#FD4F0C",
           backgroundImage:

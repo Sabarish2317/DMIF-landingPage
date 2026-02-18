@@ -5,6 +5,8 @@ import AboutDMIF from './sections/AboutDMIF'
 import HeroLoader from './HeroLoader'
 import DiscoverInstituteSection from './sections/DiscoverInstituteSection'
 import Testimonial from './sections/Testimonial'
+import FounderSection from './sections/FounderSection'
+import CTASection from './sections/CTASection'
 
 export default function LandingPage() {
   return (
@@ -17,6 +19,8 @@ export default function LandingPage() {
         <AboutDMIF />
         <DiscoverInstituteSection/>
         <Testimonial/>
+        <FounderSection/>
+        <CTASection />
       </Suspense>
     </main>
   )
