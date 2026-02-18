@@ -7,6 +7,8 @@ import DiscoverInstituteSection from './sections/DiscoverInstituteSection'
 import Testimonial from './sections/Testimonial'
 import FounderSection from './sections/FounderSection'
 import CTASection from './sections/CTASection'
+import Footer from './Layout/Footer'
+import FAQSection from './sections/FAQSection'
 
 export default function LandingPage() {
   return (
@@ -21,6 +23,8 @@ export default function LandingPage() {
         <Testimonial/>
         <FounderSection/>
         <CTASection />
+        <FAQSection/>
+        <Footer/>
       </Suspense>
     </main>
   )
