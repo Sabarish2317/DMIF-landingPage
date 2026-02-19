@@ -97,12 +97,12 @@ const Activities = () => {
             {selectedEvent && (
               <img
                 src={selectedEvent.images[selectedImageIndex]}
-                className="w-full h-[400px] md:h-[520px] object-cover transition-all duration-500"
+                className="w-full h-100 md:h-130 object-cover transition-all duration-500"
               />
             )}
 
             {/* Overlay */}
-            <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
+            <div className="absolute bottom-0 left-0 w-full bg-linear-to-t from-black/80 to-transparent p-6 text-white">
               <h3 className="text-xl md:text-2xl font-semibold">
                 {selectedEvent?.title}
               </h3>
