@@ -9,6 +9,7 @@ import FounderSection from './sections/FounderSection'
 import CTASection from './sections/CTASection'
 import Footer from './Layout/Footer'
 import FAQSection from './sections/FAQSection'
+import Activities from './sections/Activities'
 
 export default function LandingPage() {
   return (
@@ -20,6 +21,7 @@ export default function LandingPage() {
         <HeroSection />
         <AboutDMIF />
         <DiscoverInstituteSection/>
+        <Activities/>
         <Testimonial/>
         <FounderSection/>
         <CTASection />
