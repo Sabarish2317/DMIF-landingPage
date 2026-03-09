@@ -1,10 +1,10 @@
 'use client'
 
-import EntrepreneurshipProgramInfo from './Programs/EntrepreneurshipProgramInfo'
-import FoundationInfo from './Programs/FoundationInfo'
-import ProgramInfo from './Programs/PatentTrack'
+import EntrepreneurshipProgramInfo from './ggmp/EntrepreneurshipProgramInfo'
+import FoundationInfo from './ggmp/FoundationInfo'
+import ProgramInfo from './ggmp/PatentTrack'
 // import ProgramCards from '../Section/Programs/ProgramCards'
-import ResearchInfo from './Programs/ResearchTrack'
+import ResearchInfo from './ggmp/ResearchTrack'
 
 const Programs = () => {
   return (

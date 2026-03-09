@@ -1,4 +1,4 @@
-import ETIPLanding from '@/app/Pages/ETIP'
+import ETIPLanding from '@/app/pages/ETIP'
 import PageShell from '@/app/components/PageShell'
 
 export default function ExecutiveTechnologyImmersionProgramPage() {
