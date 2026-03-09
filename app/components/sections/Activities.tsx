@@ -118,16 +118,14 @@ const Activities = () => {
           {/* ================= RIGHT SIDE EVENTS ================= */}
           <div
             className="
-              md:max-h-[520px]
               md:overflow-y-auto
               md:pr-2
               flex md:block
-              
-              
               gap-4
               overflow-x-auto
               md:overflow-x-hidden
             "
+            style={{ maxHeight: '520px' }}
           >
             {events.map((event) => {
               const isActive = selectedEvent?.id === event.id;
@@ -137,7 +135,7 @@ const Activities = () => {
                   key={event.id}
                   onClick={() => setSelectedEvent(event)}
                   className={`
-                    min-w-[280px] md:min-w-full
+                    md:min-w-full
                     cursor-pointer
                     rounded-xl p-5 mb-2 border transition-all duration-300
                     ${
@@ -146,6 +144,7 @@ const Activities = () => {
                         : "bg-white hover:border-[#FD4F0C]"
                     }
                   `}
+                  style={{ minWidth: '280px' }}
                 >
                   <p className="text-sm font-medium">
                     {event.location}

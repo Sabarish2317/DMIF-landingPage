@@ -101,7 +101,7 @@ export default function FounderSection() {
           </div>
           {/* Patent Count */}
           <div className="mt-10 md:mt-0">
-            <h2 className="text-5xl md:text-6xl font-bold font-[var(--font-dm-mono)] leading-none">
+            <h2 className="text-5xl md:text-6xl font-bold leading-none">
               120+
             </h2>
             <p className="mt-2 text-sm">Patent inventor</p>

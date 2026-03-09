@@ -278,7 +278,7 @@ export default function Brain() {
           expensive GPU resampling of backdrop-blur every scroll frame */}
       <div
         ref={blurRef}
-        className="pointer-events-none absolute inset-y-0 left-0 z-[5] w-1/2"
+        className="pointer-events-none absolute inset-y-0 left-0 z-5 w-1/2"
         style={{
           opacity: 0,
           backdropFilter: 'blur(3px)',
