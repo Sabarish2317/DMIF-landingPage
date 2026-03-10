@@ -10,6 +10,7 @@ import CTASection from './sections/CTASection'
 import Footer from './Layout/Footer'
 import FAQSection from './sections/FAQSection'
 import Activities from './sections/Activities'
+import KeyProgramFeatures from './sections/KeyProgramFeatures'
 
 export default function LandingPage() {
   return (
@@ -20,19 +21,20 @@ export default function LandingPage() {
         <TopNav />
         <HeroSection />
         <AboutDMIF />
-        <DiscoverInstituteSection/>
-        <Activities/>
+        <DiscoverInstituteSection />
+        <KeyProgramFeatures />
+        <Activities />
         <div id="testimonials">
-          <Testimonial/>
+          <Testimonial />
         </div>
         <div id="hall-of-fame">
-          <FounderSection/>
+          <FounderSection />
         </div>
         <div id="contact">
           <CTASection />
         </div>
-        <FAQSection/>
-        <Footer/>
+        <FAQSection />
+        <Footer />
       </Suspense>
     </main>
   )

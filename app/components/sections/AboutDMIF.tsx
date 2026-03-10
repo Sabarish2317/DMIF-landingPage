@@ -230,12 +230,18 @@ export default function AboutDMIF() {
     <section
       ref={sectionRef}
       className="relative w-full bg-[#fe4709]"
-      style={{ height: `${N * 100}vh` }}
+      style={{
+        height: `${N * 100}vh`,
+        backgroundColor: '#FD4F0C',
+        backgroundImage:
+          'radial-gradient(rgba(255,255,255,0.25) 1px, transparent 1px)',
+        backgroundSize: '12px 12px',
+      }}
     >
       {/* Halftone dither background — matches BrainCanvas post-processing */}
-      <div className="pointer-events-none absolute inset-0 z-0">
+      {/* <div className="pointer-events-none absolute inset-0 z-0">
         <HalftoneBg className="h-full w-full" />
-      </div>
+      </div> */}
 
       {/* Sticky viewport */}
       <div className="sticky top-0 flex h-screen flex-row items-center justify-between gap-8 px-8 py-16 md:px-16 lg:px-24">

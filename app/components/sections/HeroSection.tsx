@@ -277,11 +277,13 @@ export default function Brain() {
         className="absolute inset-0 flex overflow-hidden bg-[#fe4709]"
         style={{ opacity: 0, willChange: 'transform, opacity' }}
       >
-        <BrainCanvas
-          rotationSpeed={rotationSpeed}
-          modelScale={0.75}
-          className="h-full w-full"
-        />
+        <div className="h-full w-full" style={{ transform: 'translateX(0%)' }}>
+          <BrainCanvas
+            rotationSpeed={rotationSpeed}
+            modelScale={0.75}
+            className="h-full w-full"
+          />
+        </div>
       </section>
 
       {/* Progressive blur overlay: left half only — NO willChange to avoid
