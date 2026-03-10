@@ -9,7 +9,8 @@ import { heroLoadState } from '../heroLoadState'
 const BrainCanvas = dynamic(() => import('../BrainCanvas'), { ssr: false })
 
 // Ease-in-out cubic
-const easeInOut = (t: number) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+const easeInOut = (t: number) =>
+  t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
 
 /** Animate a single ref from `from` to `to` over `duration` ms with easeInOut.
  *  `apply` receives the interpolated 0→1 value and sets the style. */
@@ -17,7 +18,7 @@ function animateRef(
   el: HTMLElement | null,
   duration: number,
   delay: number,
-  apply: (v: number) => void,
+  apply: (v: number) => void
 ) {
   if (!el) return
   let start: number | null = null
@@ -145,7 +146,11 @@ export default function Brain() {
           <section
             ref={leftRef as React.RefObject<HTMLElement>}
             className="flex max-w-xl flex-col items-start justify-center gap-6"
-            style={{ opacity: 0, transform: 'translateX(-60px)', willChange: 'transform, opacity' }}
+            style={{
+              opacity: 0,
+              transform: 'translateX(-60px)',
+              willChange: 'transform, opacity',
+            }}
           >
             {/* Badge */}
             <div className="flex cursor-pointer items-center gap-4 overflow-clip rounded-2xl bg-white pr-3">
@@ -193,7 +198,11 @@ export default function Brain() {
           <section
             ref={rightRef as React.RefObject<HTMLElement>}
             className="flex flex-col items-end justify-center gap-4"
-            style={{ opacity: 0, transform: 'translateX(60px)', willChange: 'transform, opacity' }}
+            style={{
+              opacity: 0,
+              transform: 'translateX(60px)',
+              willChange: 'transform, opacity',
+            }}
           >
             {[
               { highlight: '1000s', label: 'Mentored' },
@@ -202,18 +211,15 @@ export default function Brain() {
               { highlight: 'Mentorship over', label: 'Teaching' },
               { highlight: 'Active Learning', label: 'Methodology' },
             ].map((item, i) => (
-              <>
-                <div
-                  key={i + item.label}
-                  className="rounded-lg bg-white px-3 py-1 text-[16px] font-medium tracking-wide backdrop-blur-sm"
-                >
+              <React.Fragment key={i + item.label}>
+                <div className="rounded-lg bg-white px-3 py-1 text-[16px] font-medium tracking-wide backdrop-blur-sm">
                   <span className="text-[#fd4f0c]">{item.highlight}</span>{' '}
                   <span className="text-black">{item.label}</span>
                 </div>
                 {i != 4 && (
                   <div className="circle h-3 w-3 rounded-full bg-white" />
                 )}
-              </>
+              </React.Fragment>
             ))}
           </section>
         </div>
@@ -222,7 +228,11 @@ export default function Brain() {
         <div
           ref={gridRef}
           className="grid grid-cols-3 gap-6"
-          style={{ opacity: 0, transform: 'translateY(40px)', willChange: 'transform, opacity' }}
+          style={{
+            opacity: 0,
+            transform: 'translateY(40px)',
+            willChange: 'transform, opacity',
+          }}
         >
           {[
             {
