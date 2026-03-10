@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { ChevronDown } from 'lucide-react'
 import Button from '@/app/components/Button'
 import { heroLoadState } from './heroLoadState'
 
@@ -11,6 +12,24 @@ const easeInOut = (t: number) =>
 
 export default function TopNav() {
   const navRef = useRef<HTMLElement>(null)
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [isProgramsOpen, setIsProgramsOpen] = useState(false)
+
+  const openPrograms = () => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current)
+      closeTimerRef.current = null
+    }
+    setIsProgramsOpen(true)
+  }
+
+  const closeProgramsWithDelay = () => {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current)
+    closeTimerRef.current = setTimeout(() => {
+      setIsProgramsOpen(false)
+      closeTimerRef.current = null
+    }, 220)
+  }
 
   useEffect(() => {
     const el = navRef.current
@@ -32,14 +51,33 @@ export default function TopNav() {
       }
       requestAnimationFrame(tick)
     })
-    return unsub 
+    return () => {
+      if (closeTimerRef.current) clearTimeout(closeTimerRef.current)
+      unsub()
+    }
   }, [])
 
-  const navLinks = [
-    { label: 'Home', href: '#home', isDark: false },
-    { label: 'Process', href: '#process', isDark: true },
-    { label: 'Our Works', href: '#works', isDark: true },
-    { label: 'Contact', href: '#contact', isDark: true },
+  const programLinks = [
+    {
+      label: 'Global Guided Mentorship Program (DMIF G-GMP)',
+      href: '/global-guided-mentorship-program',
+    },
+    {
+      label: 'Global Coding Mentorship Program (DMIF G-CMP)',
+      href: '/global-coding-mentorship-program',
+    },
+    {
+      label: 'Executive Technology Immersion Program (DMIF E-TIP)',
+      href: '/executive-technology-immersion-program',
+    },
+    {
+      label: 'Professional Certification Program (DMIF PCP)',
+      href: '/professional-certification-program',
+    },
+    {
+      label: 'Why It Matters (G-GMP)',
+      href: '/global-guided-mentorship-program',
+    },
   ]
 
   return (
@@ -49,7 +87,7 @@ export default function TopNav() {
       style={{ willChange: 'transform, opacity' }}
     >
       <div className="rounded-2xl bg-white px-4 py-2.5 lg:px-4">
-        <div className="flex h-max items-center gap-12">
+        <div className="flex h-max items-center gap-8">
           {/* Logo and Brand */}
           <div className="flex items-center">
             <Image
@@ -61,19 +99,70 @@ export default function TopNav() {
             />
           </div>
 
-          {/* Desktop Navigation Grid */}
-          <div className="ml-auto flex flex-row items-center justify-center gap-8">
-            {navLinks.map((link) => (
+          {/* Desktop Navigation */}
+          <div className="ml-auto hidden items-center gap-8 lg:flex">
+            <Link href="/" className="text-lg font-semibold text-black/80 hover:text-black">
+              Home
+            </Link>
+            <Link href="/global-guided-mentorship-program" className="text-lg font-semibold text-black/80 hover:text-black">
+              Hall of Fame
+            </Link>
+            <div
+              className="relative"
+              onMouseEnter={openPrograms}
+              onMouseLeave={closeProgramsWithDelay}
+            >
+              <button
+                onClick={() => setIsProgramsOpen((prev) => !prev)}
+                onFocus={openPrograms}
+                onBlur={closeProgramsWithDelay}
+                className="inline-flex items-center gap-1 text-lg font-semibold text-[#FA773A]"
+                type="button"
+                aria-expanded={isProgramsOpen}
+                aria-haspopup="menu"
+              >
+                Programs
+                <ChevronDown className="h-4 w-4" />
+              </button>
+
+              {isProgramsOpen && (
+                <div
+                  className="absolute left-0 top-full z-50 mt-2 w-85 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xl"
+                  onMouseEnter={openPrograms}
+                  onMouseLeave={closeProgramsWithDelay}
+                >
+                  {programLinks.map((link) => (
+                    <Link
+                      key={link.href + link.label}
+                      href={link.href}
+                      className="block border-b border-slate-200 px-5 py-4 text-[13px] font-semibold leading-snug text-slate-700 transition-colors hover:bg-slate-50"
+                      onClick={() => setIsProgramsOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+            <Link href="/#testimonials" className="text-lg font-semibold text-black/80 hover:text-black">
+              Testimonials
+            </Link>
+            <Link href="/#contact" className="text-lg font-semibold text-black/80 hover:text-black">
+              Contact Us
+            </Link>
+          </div>
+
+          {/* Compact Program Links for Tablet */}
+          <div className="ml-auto grid grid-cols-2 gap-x-4 gap-y-2 lg:hidden">
+            {programLinks.slice(0, 4).map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-md font-medium transition-colors ${
-                  link.isDark
-                    ? 'text-black/80 hover:text-black'
-                    : 'font-semibold text-black hover:text-black'
-                }`}
+                className="text-md font-medium text-black/80 transition-colors hover:text-black"
               >
-                {link.label}
+                <span className="block text-xs leading-tight lg:text-[11px]">
+                  {link.label}
+                </span>
               </Link>
             ))}
           </div>

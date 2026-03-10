@@ -13,7 +13,7 @@ import Activities from './sections/Activities'
 
 export default function LandingPage() {
   return (
-    <main className="relative min-h-screen items-center">
+    <main id="home" className="relative min-h-screen items-center">
       {/* Loader lives outside Suspense so React doesn't forcibly unmount it */}
       <HeroLoader />
       <Suspense fallback={null}>
@@ -22,9 +22,15 @@ export default function LandingPage() {
         <AboutDMIF />
         <DiscoverInstituteSection/>
         <Activities/>
-        <Testimonial/>
-        <FounderSection/>
-        <CTASection />
+        <div id="testimonials">
+          <Testimonial/>
+        </div>
+        <div id="hall-of-fame">
+          <FounderSection/>
+        </div>
+        <div id="contact">
+          <CTASection />
+        </div>
         <FAQSection/>
         <Footer/>
       </Suspense>
