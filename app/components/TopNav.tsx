@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import { ChevronDown } from 'lucide-react'
 import Button from '@/app/components/Button'
 import { heroLoadState } from './heroLoadState'
@@ -14,6 +15,7 @@ export default function TopNav() {
   const navRef = useRef<HTMLElement>(null)
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [isProgramsOpen, setIsProgramsOpen] = useState(false)
+  const pathname = usePathname()
 
   const openPrograms = () => {
     if (closeTimerRef.current) {
@@ -30,6 +32,12 @@ export default function TopNav() {
       closeTimerRef.current = null
     }, 220)
   }
+
+  useEffect(() => {
+    if (pathname !== '/') {
+      heroLoadState.setReady()
+    }
+  }, [pathname])
 
   useEffect(() => {
     const el = navRef.current
@@ -74,10 +82,6 @@ export default function TopNav() {
       label: 'Professional Certification Program (DMIF PCP)',
       href: '/professional-certification-program',
     },
-    {
-      label: 'Why It Matters (G-GMP)',
-      href: '/global-guided-mentorship-program',
-    },
   ]
 
   return (
@@ -101,10 +105,16 @@ export default function TopNav() {
 
           {/* Desktop Navigation */}
           <div className="ml-auto hidden items-center gap-8 lg:flex">
-            <Link href="/" className="text-lg font-semibold text-black/80 hover:text-black">
+            <Link
+              href="/"
+              className="text-lg font-semibold text-black/80 hover:text-black"
+            >
               Home
             </Link>
-            <Link href="/global-guided-mentorship-program" className="text-lg font-semibold text-black/80 hover:text-black">
+            <Link
+              href="/#hall-of-fame"
+              className="text-lg font-semibold text-black/80 hover:text-black"
+            >
               Hall of Fame
             </Link>
             <div
@@ -127,7 +137,7 @@ export default function TopNav() {
 
               {isProgramsOpen && (
                 <div
-                  className="absolute left-0 top-full z-50 mt-2 w-85 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xl"
+                  className="absolute top-full left-0 z-50 mt-2 w-85 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xl"
                   onMouseEnter={openPrograms}
                   onMouseLeave={closeProgramsWithDelay}
                 >
@@ -135,7 +145,7 @@ export default function TopNav() {
                     <Link
                       key={link.href + link.label}
                       href={link.href}
-                      className="block border-b border-slate-200 px-5 py-4 text-[13px] font-semibold leading-snug text-slate-700 transition-colors hover:bg-slate-50"
+                      className="block border-b border-slate-200 px-5 py-4 text-[13px] leading-snug font-semibold text-slate-700 transition-colors hover:bg-slate-50"
                       onClick={() => setIsProgramsOpen(false)}
                     >
                       {link.label}
@@ -144,10 +154,16 @@ export default function TopNav() {
                 </div>
               )}
             </div>
-            <Link href="/#testimonials" className="text-lg font-semibold text-black/80 hover:text-black">
+            <Link
+              href="/#testimonials"
+              className="text-lg font-semibold text-black/80 hover:text-black"
+            >
               Testimonials
             </Link>
-            <Link href="/#contact" className="text-lg font-semibold text-black/80 hover:text-black">
+            <Link
+              href="/#contact"
+              className="text-lg font-semibold text-black/80 hover:text-black"
+            >
               Contact Us
             </Link>
           </div>

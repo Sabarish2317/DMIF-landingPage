@@ -1,4 +1,4 @@
-import CertificationsPage from '@/app/pages/Certifications'
+import CertificationsPage from '@/app/Pages/Certifications'
 import PageShell from '@/app/components/PageShell'
 
 export default function ProfessionalCertificationProgramPage() {

@@ -1,4 +1,4 @@
-import CodingProgram from '@/app/pages/GCMP'
+import CodingProgram from '@/app/Pages/GCMP'
 import PageShell from '@/app/components/PageShell'
 
 export default function GlobalCodingMentorshipProgramPage() {

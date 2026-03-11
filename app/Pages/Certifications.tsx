@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import {
   Award,
@@ -7,7 +7,6 @@ import {
   Clock,
   Users,
   ArrowRight,
-  Sparkles,
   Brain,
   Target,
   Trophy,
@@ -15,282 +14,326 @@ import {
   LineChart,
   ChevronRight,
   Code,
-  GraduationCap,
-} from "lucide-react";
+} from 'lucide-react'
+import Link from 'next/link'
 
-import { motion } from "framer-motion";
-import type { Variants } from "framer-motion";
+import { motion } from 'framer-motion'
+import type { Variants } from 'framer-motion'
 
+const dotPattern = {
+  backgroundImage:
+    'radial-gradient(rgba(255,255,255,0.25) 1px, transparent 1px)',
+  backgroundSize: '10px 10px',
+}
+
+const fade = {
+  hidden: { opacity: 0, y: 28 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: 'easeOut' as const },
+  },
+}
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  hidden: { opacity: 0, y: 30 },
   visible: (custom: number) => ({
     opacity: 1,
     y: 0,
-    scale: 1,
-    transition: {
-      delay: custom * 0.05,
-      duration: 0.55,
-      ease: "easeOut",
-    },
+    transition: { delay: custom * 0.05, duration: 0.55, ease: 'easeOut' },
   }),
-};
+}
 
 const CertificationsPage = () => {
-
-
   const certificationPaths = [
     {
-      id: "product",
-      name: "AI Product Development",
+      id: 'product',
+      name: 'AI Product Development',
       icon: Code,
-      color: "#FA773A",
-      tagline: "Build Production-Ready AI Products",
+      tagline: 'Build Production-Ready AI Products',
       description:
-        "Master the complete lifecycle of AI product development from ideation to deployment",
+        'Master the complete lifecycle of AI product development from ideation to deployment.',
       levels: [
         {
-          level: "Associate",
-          duration: "6 weeks",
-          projects: 2,
+          level: 'Associate',
+          duration: '6 weeks',
           skills: [
-            "AI Product Strategy",
-            "User Research",
-            "Prompt Engineering Basics",
-            "Feasibility Analysis",
-          ],
-          outcomes: [
-            "Design AI-powered features",
-            "Conduct AI user research",
-            "Build prototypes",
+            'AI Product Strategy',
+            'User Research',
+            'Prompt Engineering Basics',
+            'Feasibility Analysis',
           ],
         },
         {
-          level: "Specialist",
-          duration: "6 weeks",
-          projects: 4,
+          level: 'Specialist',
+          duration: '6 weeks',
           skills: [
-            "Advanced Prompting",
-            "API Integration",
-            "UI/UX for AI",
-            "Performance Optimization",
-          ],
-          outcomes: [
-            "Engineer production features",
-            "Integrate AI APIs",
-            "Build scalable interfaces",
+            'Advanced Prompting',
+            'API Integration',
+            'UI/UX for AI',
+            'Performance Optimization',
           ],
         },
         {
-          level: "Professional",
-          duration: "4 weeks",
-          projects: 1,
+          level: 'Professional',
+          duration: '4 weeks',
           skills: [
-            "Full-Stack Architecture",
-            "Deployment Strategy",
-            "Safety Systems",
-            "Enterprise Workflows",
-          ],
-          outcomes: [
-            "Architect AI systems",
-            "Deploy at scale",
-            "Launch products",
+            'Full-Stack Architecture',
+            'Deployment Strategy',
+            'Safety Systems',
+            'Enterprise Workflows',
           ],
         },
       ],
     },
     {
-      id: "agentic",
-      name: "Agentic AI Systems",
+      id: 'agentic',
+      name: 'Agentic AI Systems',
       icon: Brain,
-      color: "indigo",
-      tagline: "Create Autonomous AI Agents",
+      tagline: 'Create Autonomous AI Agents',
       description:
-        "Build intelligent agents that reason, use tools, and operate autonomously",
+        'Build intelligent agents that reason, use tools, and operate autonomously.',
       levels: [
         {
-          level: "Associate",
-          duration: "6 weeks",
-          projects: 3,
+          level: 'Associate',
+          duration: '6 weeks',
           skills: [
-            "Agentic Workflows",
-            "Tool Calling",
-            "RAG Systems",
-            "Safety & Monitoring",
-          ],
-          outcomes: [
-            "Build simple agents",
-            "Integrate external tools",
-            "Implement guardrails",
+            'Agentic Workflows',
+            'Tool Calling',
+            'RAG Systems',
+            'Safety & Monitoring',
           ],
         },
         {
-          level: "Specialist",
-          duration: "6 weeks",
-          projects: 5,
+          level: 'Specialist',
+          duration: '6 weeks',
           skills: [
-            "Multi-Agent Systems",
-            "Orchestration",
-            "Custom Tools",
-            "Error Recovery",
-          ],
-          outcomes: [
-            "Design agent pipelines",
-            "Build complex workflows",
-            "Optimize performance",
+            'Multi-Agent Systems',
+            'Orchestration',
+            'Custom Tools',
+            'Error Recovery',
           ],
         },
         {
-          level: "Professional",
-          duration: "4 weeks",
-          projects: 1,
+          level: 'Professional',
+          duration: '4 weeks',
           skills: [
-            "Enterprise Infrastructure",
-            "Governance",
-            "Large-Scale Orchestration",
-            "Security",
-          ],
-          outcomes: [
-            "Deploy enterprise agents",
-            "Implement compliance",
-            "Scale systems",
+            'Enterprise Infrastructure',
+            'Governance',
+            'Large-Scale Orchestration',
+            'Security',
           ],
         },
       ],
     },
-  ];
+  ]
 
   const specializations = [
     {
-      title: "AI for Finance",
+      title: 'AI for Finance',
       icon: LineChart,
-      status: "Coming Soon",
+      status: 'Coming Soon',
       highlights: [
-        "Risk Modeling",
-        "Fraud Detection",
-        "Algorithmic Trading",
-        "Credit Scoring",
+        'Risk Modeling',
+        'Fraud Detection',
+        'Algorithmic Trading',
+        'Credit Scoring',
       ],
     },
     {
-      title: "AI  Security",
+      title: 'AI Security',
       icon: Shield,
-      status: "Coming Soon",
+      status: 'Coming Soon',
       highlights: [
-        "Threat Detection",
-        "Anomaly Analysis",
-        "Security Automation",
-        "Incident Response",
+        'Threat Detection',
+        'Anomaly Analysis',
+        'Security Automation',
+        'Incident Response',
       ],
     },
-  ];
-
-
+  ]
 
   return (
-    <div className="min-h-screen flex flex-col gap-10  bg-linear-to-br from-gray-50 to-white">
-      <div className="relative bg-[#FA773A] overflow-hidden">
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black opacity-10"></div>
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-linear-to-b from-transparent to-[#FA773A]/20"></div>
-        </div>
-
-        {/* Content */}
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <div className="flex items-center justify-center mb-4">
-            <GraduationCap className="w-12 h-12 text-yellow-400 animate-pulse" />
-          </div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-5xl md:text-6xl font-bold text-white mb-4 tracking-tight"
-          >
+    <div className="min-h-screen bg-white">
+      {/* Hero */}
+      <section className="bg-[#0E0A18] px-6 py-24 md:px-16" style={dotPattern}>
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={fade}
+          className="mx-auto max-w-4xl text-center"
+        >
+          <span className="text-xs font-semibold tracking-[0.35em] text-[#FD4F0C] uppercase">
+            DMIF PCP &nbsp;·&nbsp; Professional Certification Program
+          </span>
+          <h1 className="mt-4 text-3xl leading-tight font-bold text-white sm:text-4xl md:text-5xl">
             Industry-Recognized Certifications
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9 }}
-            className="text-xl text-white mb-8 max-w-2xl mx-auto"
-          >
-            Accelerate Your AI Career
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.1 }}
-            className="text-lg text-white mb-10 max-w-3xl mx-auto"
-          >
-            Transform into an AI professional through progressive, hands-on
+          </h1>
+          <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-white/70 sm:text-base">
+            Accelerate your AI career through progressive, hands-on
             certification programs designed for real-world impact.
-          </motion.p>
-        </div>
+          </p>
+          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Link
+              href="/#contact"
+              className="inline-flex items-center gap-2 rounded-xl bg-[#FD4F0C] px-7 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+            >
+              Apply Now <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </motion.div>
+      </section>
 
-        {/* Wave Decoration */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg
-            viewBox="0 0 1440 48"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M0 48h1440V0s-187.5 48-720 48S0 0 0 0v48z"
-              fill="rgb(248 250 252)"
-            />
-          </svg>
+      {/* Stats bar */}
+      <section className="bg-[#FD4F0C] px-6 py-10 md:px-16" style={dotPattern}>
+        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-6 text-center md:grid-cols-4">
+          {[
+            { stat: '2', label: 'Certification Paths' },
+            { stat: '3', label: 'Progressive Levels' },
+            { stat: '16+', label: 'Weeks of Learning' },
+            { stat: 'AI', label: 'Industry-Ready Skills' },
+          ].map((item) => (
+            <div key={item.label}>
+              <p className="text-2xl font-bold text-white sm:text-3xl">
+                {item.stat}
+              </p>
+              <p className="mt-1 text-xs text-white/80 sm:text-sm">
+                {item.label}
+              </p>
+            </div>
+          ))}
         </div>
-      </div>
+      </section>
 
       {/* Certification Paths */}
-      <section className="px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+      <section className="bg-white px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-6xl flex-col gap-12">
+          <div className="flex flex-col gap-3 text-center">
+            <span className="text-xs font-semibold tracking-[0.35em] text-[#FD4F0C] uppercase">
+              Paths
+            </span>
+            <h2 className="text-2xl font-bold text-black md:text-4xl">
               Choose Your Path
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="mx-auto max-w-2xl text-sm text-gray-600 md:text-base">
               Two comprehensive certification tracks designed to build mastery
-              progressively
+              progressively.
             </p>
           </div>
-
-          <div className="grid lg:grid-cols-2 gap-8">
-            {certificationPaths.map((path, index) => (
-              <motion.div
-                key={path.id}
-                custom={index}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-              >
-                <PathCard path={path} />
-              </motion.div>
-            ))}
+          <div className="grid gap-8 lg:grid-cols-2">
+            {certificationPaths.map((path, index) => {
+              const Icon = path.icon
+              return (
+                <motion.div
+                  key={path.id}
+                  custom={index}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.2 }}
+                  className="rounded-2xl border border-gray-200 bg-white p-7 transition-colors hover:border-[#FD4F0C]/50"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#FD4F0C]/20 bg-[#FD4F0C]/5">
+                      <Icon className="h-5 w-5 text-[#FD4F0C]" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <span className="text-[10px] font-semibold tracking-[0.25em] text-gray-500 uppercase">
+                        Certification Path
+                      </span>
+                      <h3 className="mt-0.5 text-lg font-semibold text-black">
+                        {path.name}
+                      </h3>
+                      <p className="mt-0.5 text-sm font-medium text-[#FD4F0C]">
+                        {path.tagline}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="mt-5 border-l-2 border-[#FD4F0C]/30 pl-4 text-sm leading-relaxed text-gray-600">
+                    {path.description}
+                  </p>
+                  <div className="mt-6 space-y-4">
+                    {path.levels.map((level, idx) => (
+                      <div key={idx} className="flex gap-4">
+                        <div className="flex flex-col items-center">
+                          <span className="grid h-9 w-9 place-items-center rounded-xl border border-[#FD4F0C]/30 text-sm font-semibold text-[#FD4F0C]">
+                            {idx + 1}
+                          </span>
+                          {idx !== path.levels.length - 1 && (
+                            <span className="mt-2 h-full w-px bg-[#FD4F0C]/20" />
+                          )}
+                        </div>
+                        <div className="mb-4 flex-1 rounded-xl border border-gray-100 bg-gray-50 p-4">
+                          <div className="flex items-center justify-between gap-2">
+                            <div>
+                              <p className="text-[11px] tracking-wide text-gray-500 uppercase">
+                                {level.level}
+                              </p>
+                              <p className="text-sm font-semibold text-black">
+                                {level.duration} · Hands-on + Capstone
+                              </p>
+                            </div>
+                          </div>
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            {level.skills.slice(0, 3).map((skill, si) => (
+                              <span
+                                key={si}
+                                className="rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-medium text-gray-600"
+                              >
+                                {skill}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              )
+            })}
           </div>
         </div>
       </section>
 
-      {/* Level Details */}
-      <section className="px-4 sm:px-6 lg:px-8 bg-linear-to-br from-gray-50 to-white">
-        <div className="max-w-7xl flex flex-col gap-5 mx-auto">
-          <div className="text-center ">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+      {/* Progressive Levels */}
+      <section className="bg-[#0E0A18] px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-6xl flex-col gap-12">
+          <div className="flex flex-col gap-3 text-center">
+            <span className="text-xs font-semibold tracking-[0.35em] text-[#FD4F0C] uppercase">
+              Journey
+            </span>
+            <h2 className="text-2xl font-bold text-white md:text-4xl">
               Progressive Learning Journey
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="mx-auto max-w-2xl text-sm text-white/60 md:text-base">
               Each certification has three progressive levels with increasing
-              complexity
+              complexity.
             </p>
           </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {["Associate", "Specialist", "Professional"].map((level, idx) => (
+          <div className="grid gap-6 md:grid-cols-3">
+            {[
+              {
+                level: 'Associate',
+                badge: 'Beginner',
+                icon: BookOpen,
+                duration: '6 weeks',
+                desc: 'Build foundational knowledge and create your first AI projects.',
+              },
+              {
+                level: 'Specialist',
+                badge: 'Intermediate',
+                icon: Target,
+                duration: '6 weeks',
+                desc: 'Develop advanced skills and engineer production-ready solutions.',
+              },
+              {
+                level: 'Professional',
+                badge: 'Advanced',
+                icon: Trophy,
+                duration: '4 weeks',
+                desc: 'Master architecture, deployment, and enterprise-scale systems.',
+              },
+            ].map(({ level, badge, icon: Icon, duration, desc }, idx) => (
               <motion.div
                 key={level}
                 custom={idx}
@@ -298,8 +341,35 @@ const CertificationsPage = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
+                className="rounded-2xl border border-white/10 bg-white/5 p-7 transition-colors hover:border-[#FD4F0C]/40"
               >
-                <LevelCard level={level} index={idx} />
+                <div className="mb-5 flex items-center justify-between">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FD4F0C]">
+                    <Icon className="h-6 w-6 text-white" />
+                  </div>
+                  <span className="rounded-full border border-[#FD4F0C]/20 bg-[#FD4F0C]/10 px-3 py-1 text-xs font-semibold text-[#FD4F0C]">
+                    {badge}
+                  </span>
+                </div>
+                <h3 className="mb-2 text-xl font-bold text-white">{level}</h3>
+                <p className="mb-5 text-sm leading-relaxed text-white/60">
+                  {desc}
+                </p>
+                <div className="space-y-2">
+                  {[
+                    { icon: Clock, label: `${duration} duration` },
+                    { icon: Users, label: 'Live mentorship included' },
+                    { icon: Award, label: 'Industry certification' },
+                  ].map(({ icon: I, label }) => (
+                    <div
+                      key={label}
+                      className="flex items-center gap-2 text-white/60"
+                    >
+                      <I className="h-4 w-4 text-[#FD4F0C]" />
+                      <span className="text-sm">{label}</span>
+                    </div>
+                  ))}
+                </div>
               </motion.div>
             ))}
           </div>
@@ -307,234 +377,102 @@ const CertificationsPage = () => {
       </section>
 
       {/* Specializations */}
-      <section className="px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-linear-to-r from-[#FA773A] to-[#FA773A]/80 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
-              <Sparkles className="w-4 h-4" />
+      <section className="bg-white px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-5xl flex-col gap-12">
+          <div className="flex flex-col gap-3 text-center">
+            <span className="mx-auto inline-flex items-center gap-2 rounded-full border border-[#FD4F0C]/20 bg-[#FD4F0C]/10 px-4 py-1.5 text-xs font-semibold text-[#FD4F0C]">
               Coming Soon
-            </div>
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+            </span>
+            <h2 className="text-2xl font-bold text-black md:text-4xl">
               Industry Specializations
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Domain-specific certifications launching in 2025
+            <p className="mx-auto max-w-2xl text-sm text-gray-600 md:text-base">
+              Domain-specific certifications launching in 2025.
             </p>
           </div>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {specializations.map((spec, idx) => (
-              <motion.div
-                key={idx}
-                custom={idx}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-              >
-                <SpecializationCard spec={spec} />
-              </motion.div>
-            ))}
+          <div className="grid gap-8 md:grid-cols-2">
+            {specializations.map((spec, idx) => {
+              const Icon = spec.icon
+              return (
+                <div
+                  key={idx}
+                  className="rounded-2xl border border-gray-200 bg-white p-8 transition-all hover:border-[#FD4F0C] hover:shadow-md"
+                >
+                  <div className="mb-5 flex items-start gap-4">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#FD4F0C]">
+                      <Icon className="h-6 w-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-black">
+                        {spec.title}
+                      </h3>
+                      <span className="mt-1 inline-block rounded-full bg-[#FD4F0C]/10 px-3 py-0.5 text-xs font-semibold text-[#FD4F0C]">
+                        {spec.status}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    {spec.highlights.map((h, i) => (
+                      <div key={i} className="flex items-center gap-2">
+                        <CheckCircle className="h-4 w-4 shrink-0 text-[#FD4F0C]" />
+                        <span className="text-sm text-gray-700">{h}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <button
+                    onClick={() =>
+                      window.open(
+                        'https://certifications.drmadhan.org/',
+                        '_blank'
+                      )
+                    }
+                    className="mt-6 flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#FD4F0C] py-3 text-sm font-semibold text-white transition-all hover:opacity-90"
+                  >
+                    Join Waitlist <ChevronRight className="h-4 w-4" />
+                  </button>
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-10 px-4 sm:px-6 lg:px-8 bg-linear-to-br from-[#FA773A] via-[#FA773A]/90 to-[#FA773A]/80">
+      {/* CTA */}
+      <section
+        className="bg-[#FD4F0C] px-4 py-20 sm:px-6 lg:px-8"
+        style={dotPattern}
+      >
         <motion.div
-          className="max-w-4xl mx-auto text-center"
-          initial="hidden"
-          whileInView="visible"
-          custom={1}
-          variants={fadeUp}
+          className="mx-auto flex max-w-3xl flex-col gap-6 text-center"
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
         >
-          <div className="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6">
-            <Trophy className="w-10 h-10 text-white" />
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10">
+            <Trophy className="h-8 w-8 text-white" />
           </div>
-
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+          <h2 className="text-2xl font-bold text-white md:text-4xl">
             Ready to Get Certified?
           </h2>
-
-          <p className="text-xl text-white mb-10 max-w-2xl mx-auto">
+          <p className="mx-auto max-w-xl text-sm text-white/80 md:text-base">
             Join a global community of AI professionals and transform your
-            career with industry-recognized credentials
+            career with industry-recognized credentials.
           </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button onClick={() => window.open("https://certifications.drmadhan.org/", "_blank")} className="bg-white cursor-pointer text-[#FA773A] px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all shadow-xl flex items-center justify-center gap-2">
-              Start Your Journey
-              <ArrowRight className="w-5 h-5" />
+          <div className="mt-2 flex justify-center">
+            <button
+              onClick={() =>
+                window.open('https://certifications.drmadhan.org/', '_blank')
+              }
+              className="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-white px-8 py-3 text-sm font-semibold text-[#FD4F0C] transition-all hover:bg-white/90"
+            >
+              Start Your Journey <ArrowRight className="h-4 w-4" />
             </button>
           </div>
         </motion.div>
       </section>
     </div>
-  );
-};
+  )
+}
 
-// Path Card Component
-const PathCard = ({ path }: any) => {
-  const Icon = path.icon;
-
-  return (
-    <div className="rounded-3xl border border-slate-200 bg-white p-7 transition-colors hover:border-[#FA773A]/60">
-      <div className="flex flex-wrap items-start gap-4">
-        <div className="w-14 h-14 rounded-2xl border border-[#FA773A]/20 text-[#FA773A] flex items-center justify-center">
-          <Icon className="w-6 h-6" />
-        </div>
-        <div className="flex-1 min-w-55">
-          <div className="flex flex-wrap items-center gap-2 mb-1">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-slate-500">
-              Certification Path
-            </span>
-            <span className="rounded-full bg-[#FA773A]/10 px-2.5 py-0.5 text-[11px] font-semibold text-[#FA773A]">
-              {path.levels.length} Levels
-            </span>
-          </div>
-          <h3 className="text-xl font-semibold text-slate-900">{path.name}</h3>
-          <p className="text-sm font-medium text-[#FA773A] mt-0.5">
-            {path.tagline}
-          </p>
-        </div>
-      </div>
-
-      <p className="mt-5 text-sm text-slate-600 leading-relaxed border-l border-[#FA773A]/30 pl-4">
-        {path.description}
-      </p>
-
-      <div className="mt-6 space-y-5">
-        {path.levels.map((level: any, idx: number) => (
-          <div key={idx} className="flex gap-4">
-            <div className="flex flex-col items-center">
-              <span className="grid h-10 w-10 place-items-center rounded-2xl border border-[#FA773A]/30 bg-white text-sm font-semibold text-[#FA773A]">
-                {idx + 1}
-              </span>
-              {idx !== path.levels.length - 1 && (
-                <span className="mt-2 h-full w-px bg-[#FA773A]/30"></span>
-              )}
-            </div>
-            <div className="flex-1 rounded-2xl border border-slate-100 bg-white p-4">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <div>
-                  <p className="text-[11px] uppercase tracking-wide text-slate-500">
-                    {level.level}
-                  </p>
-                  <p className="text-base font-semibold text-slate-900">
-                    {level.duration} • 
-                   (Hands on exercises + Final capstone)
-                  </p>
-                </div>
-                <span className="rounded-full border border-slate-200 px-3 py-0.5 text-xs font-medium text-slate-600">
-                  Key Skills
-                </span>
-              </div>
-
-              
-              <div className="mt-3 flex flex-wrap gap-2">
-                {level.skills
-                  .slice(0, 3)
-                  .map((skill: string, skillIdx: number) => (
-                    <span
-                      key={skillIdx}
-                      className="rounded-full bg-slate-50 px-3 py-1 text-xs font-medium text-slate-600"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-// Level Card Component
-const LevelCard = ({ level, index }: any) => {
-  const badges = ["Beginner", "Intermediate", "Advanced"];
-  const icons = [BookOpen, Target, Trophy];
-  const Icon = icons[index];
-  const durations = ["6 weeks", "6 weeks", "4 weeks"];
-  return (
-    <div className="bg-white rounded-2xl border-2 border-gray-200 p-8 hover:border-[#FA773A] transition-all hover:shadow-xl">
-      <div className="flex items-center justify-between mb-6">
-        <div className="w-14 h-14 bg-[#FA773A] rounded-xl flex items-center justify-center">
-          <Icon className="w-7 h-7 text-white" />
-        </div>
-        <span className="px-4 py-1 bg-[#FA773A]/10 text-[#FA773A] rounded-full text-sm font-semibold">
-          {badges[index]}
-        </span>
-      </div>
-
-      <h3 className="text-2xl font-bold text-gray-900 mb-3">{level}</h3>
-      <p className="text-gray-600 mb-6">
-        {index === 0 &&
-          "Build foundational knowledge and create your first AI projects"}
-        {index === 1 &&
-          "Develop advanced skills and engineer production-ready solutions"}
-        {index === 2 &&
-          "Master architecture, deployment, and enterprise-scale systems"}
-      </p>
-
-      <div className="space-y-3">
-        <div className="flex items-center gap-2 text-gray-700">
-          <Clock className="w-4 h-4 text-[#FA773A]" />
-          <span className="text-sm">{durations[index]} duration</span>
-        </div>
-        <div className="flex items-center gap-2 text-gray-700">
-          <Users className="w-4 h-4 text-[#FA773A]" />
-          <span className="text-sm">Live mentorship included</span>
-        </div>
-        <div className="flex items-center gap-2 text-gray-700">
-          <Award className="w-4 h-4 text-[#FA773A]" />
-          <span className="text-sm">Industry certification</span>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Specialization Card Component
-const SpecializationCard = ({ spec }: any) => {
-  const Icon = spec.icon;
-
-  return (
-    <div className="bg-linear-to-br from-white to-gray-50 rounded-2xl border-2 border-gray-200 p-8 hover:border-[#FA773A] transition-all hover:shadow-xl">
-      <div className="flex items-start gap-4 mb-6">
-        <div className="w-14 h-14 bg-[#FA773A] rounded-xl flex items-center justify-center">
-          <Icon className="w-7 h-7 text-white" />
-        </div>
-        <div className="flex-1">
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">
-            {spec.title}
-          </h3>
-          <span className="inline-block px-3 py-1 bg-[#FA773A]/10 text-[#FA773A] rounded-full text-sm font-medium">
-            {spec.status}
-          </span>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3">
-        {spec.highlights.map((highlight: any, idx: number) => (
-          <div key={idx} className="flex items-center gap-2">
-            <CheckCircle className="w-4 h-4 text-[#FA773A] shrink-0" />
-            <span className="text-sm text-gray-700">{highlight}</span>
-          </div>
-        ))}
-      </div>
-
-      <button onClick={() => window.open("https://certifications.drmadhan.org/", "_blank")}
-
-className="mt-6 w-full bg-[#FA773A] text-white py-3 cursor-pointer rounded-xl font-semibold hover:bg-[#FA773A]/80 transition-all flex items-center justify-center gap-2">
-        Join Waitlist
-        <ChevronRight className="w-5 h-5" />
-      </button>
-    </div>
-  );
-};
-
-export default CertificationsPage;
-
+export default CertificationsPage

@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import CalEmbed from '@/app/components/common/CalEmbed'
 
 export default function CTASection() {
   return (
@@ -30,14 +30,19 @@ export default function CTASection() {
           </div>
         </div>
 
+        {/* Cal.com Booking */}
+        <CalEmbed />
+
         {/* Button */}
         <div className="mt-8 md:mt-10">
-          <Link
-            href="/contact"
-            className="inline-block rounded-xl bg-white px-6 py-3 text-sm font-medium text-black transition duration-300 hover:bg-black sm:px-8 sm:text-base"
+          <button
+            data-cal-namespace="30min"
+            data-cal-link="sabarish-vs/30min"
+            data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
+            className="inline-block rounded-xl bg-white px-6 py-3 text-sm font-medium text-black transition duration-300 hover:bg-[#FD4F0C] hover:text-white sm:px-8 sm:text-base"
           >
             Book a Meet
-          </Link>
+          </button>
         </div>
       </div>
     </section>
