@@ -126,7 +126,7 @@ export default function TopNav() {
                 onClick={() => setIsProgramsOpen((prev) => !prev)}
                 onFocus={openPrograms}
                 onBlur={closeProgramsWithDelay}
-                className="inline-flex items-center gap-1 text-lg font-semibold text-[#FA773A]"
+                className="inline-flex items-center gap-1 text-lg font-semibold text-black/80 transition-colors hover:text-[#FA773A]"
                 type="button"
                 aria-expanded={isProgramsOpen}
                 aria-haspopup="menu"

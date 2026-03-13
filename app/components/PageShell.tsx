@@ -5,7 +5,7 @@ export default function PageShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative min-h-screen bg-white">
       <TopNav />
-      <main className="pt-24">{children}</main>
+      <main className="">{children}</main>
       <Footer />
     </div>
   )
