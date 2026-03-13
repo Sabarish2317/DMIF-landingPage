@@ -112,7 +112,7 @@ export default function TopNav() {
               Home
             </Link>
             <Link
-              href="/#hall-of-fame"
+              href="/hall-of-fame"
               className="text-lg font-semibold text-black/80 hover:text-black"
             >
               Hall of Fame
