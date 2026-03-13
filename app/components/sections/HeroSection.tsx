@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import Button from '@/app/components/Button'
 import { brainScrollState } from '../brainScrollState'
 import { heroLoadState } from '../heroLoadState'
+import { supabase } from '@/lib/supabase'
 
 const BrainCanvas = dynamic(() => import('../BrainCanvas'), { ssr: false })
 
@@ -38,13 +39,14 @@ export default function Brain() {
   const contentRef = useRef<HTMLDivElement>(null)
   const brainRef = useRef<HTMLElement>(null)
   const blurRef = useRef<HTMLDivElement>(null)
+  const [marquee, setmarquee] = React.useState<any>([]);
   const rafRef = useRef<number | null>(null)
   // Intro animation targets
   const leftRef = useRef<HTMLElement>(null)
   const rightRef = useRef<HTMLElement>(null)
   const gridRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
+  useEffect( () => {
     // Cache section top once — avoids getBoundingClientRect every frame
     let sectionTop = 0
     let ticking = false
@@ -54,6 +56,8 @@ export default function Brain() {
         sectionTop =
           sectionRef.current.getBoundingClientRect().top + window.scrollY
     }
+
+    
 
     const update = () => {
       ticking = false
@@ -78,12 +82,27 @@ export default function Brain() {
         blurRef.current.style.opacity = opacityStr
       }
     }
+    
 
+  const fetchMessages = async () => {
+    const { data, error } = await supabase
+      .from("marquee_messages")
+      .select("*");
+
+    if (error) {
+      console.error(error);
+    } else {
+      setmarquee(data);
+    }
+  };
+
+  fetchMessages();
     const onScroll = () => {
       if (ticking) return
       ticking = true
       rafRef.current = requestAnimationFrame(update)
     }
+
 
     cacheBounds()
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -132,6 +151,15 @@ export default function Brain() {
     }
   }, [])
 
+  const activeNews = marquee.filter(
+  (m: any) => m.type === "news" && m.is_active
+);
+
+const activeConstant = marquee.filter(
+  (m: any) => m.type === "constant" && m.is_active
+);
+
+const activeMarquee = activeNews.length > 0 ? activeNews : activeConstant;
   return (
     <div ref={sectionRef} className="relative z-0 h-screen w-full">
       {/* Content overlay */}
@@ -153,14 +181,28 @@ export default function Brain() {
             }}
           >
             {/* Badge */}
-            <div className="flex cursor-pointer items-center gap-4 overflow-clip rounded-2xl bg-white pr-3">
-              <span className="rounded-2xl bg-[#2b2b2b] px-3 py-2.5 text-sm font-medium tracking-wide text-white ring ring-[#2b2b2b]">
-                New
-              </span>
-              <span className="text-md leading-[1.2] font-medium text-[#2b2b2b] hover:underline">
-                We are in IIT Madras, view more →
-              </span>
-            </div>
+<div className="flex cursor-pointer items-center gap-4 overflow-hidden rounded-2xl bg-white pr-3">
+
+  <span className="rounded-2xl bg-[#2b2b2b] px-3 py-2.5 text-sm font-medium tracking-wide text-white ring ring-[#2b2b2b] shrink-0">
+    {activeNews.length > 0 ? "Announcement" : "Vision"}
+  </span>
+
+  <div className="relative max-w-87.5 overflow-hidden">
+    
+    <div className="flex gap-10 animate-marquee whitespace-nowrap">
+
+      {[...activeMarquee, ...activeMarquee].map((item: any, index) => (
+        <span
+          key={index}
+          className="text-md font-medium text-[#2b2b2b] hover:underline"
+          dangerouslySetInnerHTML={{ __html: item.message }}
+        />
+      ))}
+
+    </div>
+
+  </div>
+</div>
 
             {/* Heading */}
             <h1 className="font-inter text-[56px] leading-[1.15] font-medium tracking-tight text-white">
