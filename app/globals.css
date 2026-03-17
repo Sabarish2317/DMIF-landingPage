@@ -31,8 +31,8 @@ html::-webkit-scrollbar {
   --font-mono: var(--font-satoshi);
 
   --shadow-apple:
-    0 0 20px rgba(0, 0, 0, 0.06), 0 0 40px rgba(0, 0, 0, 0.04),
-    0 0 80px rgba(0, 0, 0, 0.02);
+    0 0 10px rgba(0, 0, 0, 0.06), 0 0 20px rgba(0, 0, 0, 0.04),
+    0 0 20px rgba(0, 0, 0, 0.02);
 
   --transition-smooth: all 300ms ease-in-out;
 }
@@ -51,14 +51,12 @@ body {
     var(--font-inter), var(--font-satoshi), Arial, Helvetica, sans-serif;
 }
 
-
 .bg-grid {
-  background-image: 
+  background-image:
     linear-gradient(to right, #0000 1px, transparent 1px),
     linear-gradient(to bottom, #0000 1px, transparent 1px);
   background-size: 80px 80px; /* Bigger squares */
 }
-
 
 @keyframes marquee {
   0% {

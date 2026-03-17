@@ -95,11 +95,11 @@ export default function KeyProgramFeatures() {
   return (
     <section className="h-screen w-full overflow-hidden bg-[#0E0A18] py-16">
       {/* Header */}
-      <div className="z-12 mb-12 flex flex-col items-center justify-center gap-3 px-6 text-center">
+      <div className="relative z-[30] mb-12 flex flex-col items-center justify-center gap-3 px-6 text-center">
         <h2 className="font-inter text-3xl font-semibold tracking-tight text-white md:text-[2.5rem]">
           Key Program Features
         </h2>
-        <p className="mt-3 text-base leading-relaxed text-white/50">
+        <p className="text-base leading-relaxed text-white/50">
           Founded by an IIM Calcutta Alumnus and a globally
           <br />
           recognized inventor and technologist.
@@ -107,7 +107,7 @@ export default function KeyProgramFeatures() {
       </div>
 
       {/* 3-column layout: cards | SVG (absolute behind) | cards */}
-      <div className="relative z-11 mx-auto flex max-w-7xl items-center gap-100 px-6 md:px-12 lg:px-16">
+      <div className="relative z-[11] mx-auto flex max-w-7xl items-center gap-100 px-6 md:px-12 lg:px-16">
         {/* Left cards */}
         <div className="z-10 flex flex-1 flex-col justify-center gap-5">
           {leftFeatures.map((f, i) => (
@@ -122,7 +122,7 @@ export default function KeyProgramFeatures() {
         </div>
 
         {/* Center SVG — absolute, centered behind the cards */}
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+        <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center">
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 12, ease: 'linear', repeat: Infinity }}
@@ -131,9 +131,9 @@ export default function KeyProgramFeatures() {
             <Image
               src="/icons/rotating-ellipse.svg"
               alt="DMIF feature hub"
-              width={760}
-              height={600}
-              className="select-none"
+              width={700}
+              height={500}
+              className="z-10 select-none"
               priority
             />
           </motion.div>

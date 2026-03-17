@@ -1,27 +1,31 @@
 'use client'
 
+import Cal, { getCalApi } from '@calcom/embed-react'
 import { useEffect } from 'react'
 
-export default function CalEmbed() {
+export default function BookingSection() {
   useEffect(() => {
-    const script = document.createElement('script')
-    script.src = 'https://app.cal.com/embed/embed.js'
-    script.async = true
-    script.onload = () => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const Cal = (window as any).Cal
-      Cal('init', '30min', { origin: 'https://app.cal.com' })
-      Cal.ns['30min']('ui', {
-        hideEventTypeDetails: false,
-        layout: 'month_view',
-      })
-    }
-    document.head.appendChild(script)
+    ;(async function () {
+      const cal = await getCalApi()
 
-    return () => {
-      document.head.removeChild(script)
-    }
+      cal('ui', {
+        theme: 'dark', // Switch to "light" based on your site's design
+        styles: {
+          branding: { brandColor: '#000000' }, // Your primary brand color
+        },
+        hideEventTypeDetails: false, // Essential: Keeps the left details column visible
+        layout: 'month_view', // Essential: Forces the 3-column calendar view
+      })
+    })()
   }, [])
 
-  return null
+  return (
+    <section className="mx-auto w-full py-12">
+      <Cal
+        calLink="/sabarish-vs/30min" // Replace with your actual Cal.com link
+        style={{ width: '100%', height: '100%', overflow: 'hidden' }}
+        config={{ layout: 'month_view' }} // Double enforcing the layout
+      />
+    </section>
+  )
 }

@@ -4,8 +4,8 @@ import CalEmbed from '@/app/components/common/CalEmbed'
 
 export default function CTASection() {
   return (
-    <section className="flex h-[80vh] w-full items-center justify-center bg-[#0E0A18] px-4 py-16 text-center md:py-20">
-      <div className="mx-auto max-w-4xl text-center">
+    <section className="flex h-max w-full flex-col items-center justify-center bg-[#0E0A18] px-4 py-16 text-center md:py-20">
+      <div className="mx-auto text-center">
         {/* Heading */}
         <h2 className="text-3xl leading-tight font-bold text-white sm:text-4xl md:text-5xl">
           Get Started Now!
@@ -29,12 +29,12 @@ export default function CTASection() {
             <span className="text-white">Active Learning Methodology™</span>
           </div>
         </div>
+      </div>
+      {/* Cal.com Booking */}
+      <CalEmbed />
 
-        {/* Cal.com Booking */}
-        <CalEmbed />
-
-        {/* Button */}
-        <div className="mt-8 md:mt-10">
+      {/* Button */}
+      {/* <div className="mt-8 md:mt-10">
           <button
             data-cal-namespace="30min"
             data-cal-link="sabarish-vs/30min"
@@ -43,8 +43,7 @@ export default function CTASection() {
           >
             Book a Meet
           </button>
-        </div>
-      </div>
+        </div> */}
     </section>
   )
 }

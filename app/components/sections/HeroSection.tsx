@@ -39,14 +39,14 @@ export default function Brain() {
   const contentRef = useRef<HTMLDivElement>(null)
   const brainRef = useRef<HTMLElement>(null)
   const blurRef = useRef<HTMLDivElement>(null)
-  const [marquee, setmarquee] = React.useState<any>([]);
+  const [marquee, setmarquee] = React.useState<any>([])
   const rafRef = useRef<number | null>(null)
   // Intro animation targets
   const leftRef = useRef<HTMLElement>(null)
   const rightRef = useRef<HTMLElement>(null)
   const gridRef = useRef<HTMLDivElement>(null)
 
-  useEffect( () => {
+  useEffect(() => {
     // Cache section top once — avoids getBoundingClientRect every frame
     let sectionTop = 0
     let ticking = false
@@ -56,8 +56,6 @@ export default function Brain() {
         sectionTop =
           sectionRef.current.getBoundingClientRect().top + window.scrollY
     }
-
-    
 
     const update = () => {
       ticking = false
@@ -82,27 +80,25 @@ export default function Brain() {
         blurRef.current.style.opacity = opacityStr
       }
     }
-    
 
-  const fetchMessages = async () => {
-    const { data, error } = await supabase
-      .from("marquee_messages")
-      .select("*");
+    const fetchMessages = async () => {
+      const { data, error } = await supabase
+        .from('marquee_messages')
+        .select('*')
 
-    if (error) {
-      console.error(error);
-    } else {
-      setmarquee(data);
+      if (error) {
+        console.error(error)
+      } else {
+        setmarquee(data)
+      }
     }
-  };
 
-  fetchMessages();
+    fetchMessages()
     const onScroll = () => {
       if (ticking) return
       ticking = true
       rafRef.current = requestAnimationFrame(update)
     }
-
 
     cacheBounds()
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -152,14 +148,21 @@ export default function Brain() {
   }, [])
 
   const activeNews = marquee.filter(
-  (m: any) => m.type === "news" && m.is_active
-);
+    (m: any) => m.type === 'news' && m.is_active
+  )
 
-const activeConstant = marquee.filter(
-  (m: any) => m.type === "constant" && m.is_active
-);
+  const activeConstant = marquee.filter(
+    (m: any) => m.type === 'constant' && m.is_active
+  )
 
-const activeMarquee = activeNews.length > 0 ? activeNews : activeConstant;
+  const activeMarquee = activeNews.length > 0 ? activeNews : activeConstant
+
+  const handleScrollToCTA = () => {
+    const ctaSection = document.getElementById('contact')
+    if (ctaSection) {
+      ctaSection.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
   return (
     <div ref={sectionRef} className="relative z-0 h-screen w-full">
       {/* Content overlay */}
@@ -181,28 +184,25 @@ const activeMarquee = activeNews.length > 0 ? activeNews : activeConstant;
             }}
           >
             {/* Badge */}
-<div className="flex cursor-pointer items-center gap-4 overflow-hidden rounded-2xl bg-white pr-3">
+            <div className="flex max-w-[380px] cursor-pointer items-center gap-4 overflow-hidden rounded-2xl bg-white pr-3">
+              <span className="z-15 shrink-0 rounded-2xl bg-[#2b2b2b] px-3 py-2.5 text-sm font-medium tracking-wide text-white ring ring-[#2b2b2b]">
+                {activeNews.length > 0 ? 'Announcement' : 'Vision'}
+              </span>
 
-  <span className="rounded-2xl bg-[#2b2b2b] px-3 py-2.5 text-sm font-medium tracking-wide text-white ring ring-[#2b2b2b] shrink-0">
-    {activeNews.length > 0 ? "Announcement" : "Vision"}
-  </span>
-
-  <div className="relative max-w-87.5 overflow-hidden">
-    
-    <div className="flex gap-10 animate-marquee whitespace-nowrap">
-
-      {[...activeMarquee, ...activeMarquee].map((item: any, index) => (
-        <span
-          key={index}
-          className="text-md font-medium text-[#2b2b2b] hover:underline"
-          dangerouslySetInnerHTML={{ __html: item.message }}
-        />
-      ))}
-
-    </div>
-
-  </div>
-</div>
+              <div className="relative z-12">
+                <div className="animate-marquee flex gap-10 whitespace-nowrap">
+                  {[...activeMarquee, ...activeMarquee].map(
+                    (item: any, index) => (
+                      <span
+                        key={index}
+                        className="text-md font-medium text-[#2b2b2b] hover:underline"
+                        dangerouslySetInnerHTML={{ __html: item.message }}
+                      />
+                    )
+                  )}
+                </div>
+              </div>
+            </div>
 
             {/* Heading */}
             <h1 className="font-inter text-[56px] leading-[1.15] font-medium tracking-tight text-white">
@@ -223,15 +223,16 @@ const activeMarquee = activeNews.length > 0 ? activeNews : activeConstant;
             <div className="flex items-center gap-3">
               <Button
                 variant="fill"
+                onClick={handleScrollToCTA}
                 className="text-md bg-white text-[#fd4f0c]!"
               >
-                Get Started →
+                Book a Meet →
               </Button>
               <Button
                 variant="fill"
                 className="text-md bg-[#2b2b2b]! text-white!"
               >
-                Book a Meet
+                View Programs
               </Button>
             </div>
           </section>

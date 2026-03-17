@@ -33,6 +33,13 @@ export default function TopNav() {
     }, 220)
   }
 
+  const handleScrollToCTA = () => {
+    const ctaSection = document.getElementById('contact')
+    if (ctaSection) {
+      ctaSection.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   useEffect(() => {
     if (pathname !== '/') {
       heroLoadState.setReady()
@@ -185,9 +192,12 @@ export default function TopNav() {
 
           {/* CTA Button */}
           <div className="ml-auto">
-            <Button className="py-2.5!" variant="fill">
+            <button
+              onClick={handleScrollToCTA}
+              className="rounded-lg bg-[#fd4f0c] px-6 py-2.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-[#e04500]"
+            >
               Apply Now
-            </Button>
+            </button>
           </div>
         </div>
       </div>

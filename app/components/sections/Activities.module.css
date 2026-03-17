@@ -1,0 +1,24 @@
+.customScrollbar {
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db #f9fafb;
+}
+
+.customScrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.customScrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 5px 0;
+}
+
+.customScrollbar::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+.customScrollbar::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}

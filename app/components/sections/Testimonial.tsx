@@ -1,19 +1,23 @@
-"use client"
+'use client'
 
-import { TestimonialSlider } from "../ui/Testimonial/testimonial-slider-1";
-import { useTestimonials } from "../TestimonialData";
-
+import { TestimonialSlider } from '../ui/Testimonial/testimonial-slider-1'
+import { useTestimonials } from '../TestimonialData'
 
 // 2. Render the component with the data
 export default function Testimonial() {
-  const { items: testimonials } = useTestimonials();
-  console.log("Fetched testimonials:", testimonials);
+  const { items: testimonials } = useTestimonials()
+  console.log('Fetched testimonials:', testimonials)
   return (
-    <div className="w-full flex flex-col px-4 md:px-8 gap-1 bg-white">
-      <h1 className="text-4xl text-start md:text-5xl font-bold text-gray-900 leading-tight mb-4">
-        Transformations Powered by DMIF
-      </h1>
+    <div className="flex w-full flex-col gap-1 bg-white px-4 md:px-8">
+      <div className="text-center">
+        <h2 className="text-3xl font-bold md:text-4xl">
+          Transformations Powered By DMIF
+        </h2>
+        <p className="mt-2 text-gray-500">
+          Events that are undertaken and participated by the team
+        </p>
+      </div>
       <TestimonialSlider reviews={testimonials} />
     </div>
-  );
+  )
 }
