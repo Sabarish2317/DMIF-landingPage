@@ -35,21 +35,19 @@ export const TestimonialSlider = ({
 
   const activeReview = reviews.length > 0 ? reviews[currentIndex] : undefined
 
-  const handleNext = () => {
-    if (reviews.length === 0 || isDialogOpen) return
-    setDirection('right')
-    setCurrentIndex((prev) => (prev + 1) % reviews.length)
-    // reset autoplay when user manually navigates
-    resetAutoplay()
-  }
+const handleNext = () => {
+  if (reviews.length === 0 || isDialogOpen) return
+  setDirection('right')
+  setCurrentIndex((prev) => (prev + 1) % reviews.length)
+  resetAutoplay()
+}
 
-  const handlePrev = () => {
-    if (reviews.length === 0 || isDialogOpen) return
-    setDirection('left')
-    setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length)
-    // reset autoplay when user manually navigates
-    resetAutoplay()
-  }
+const handlePrev = () => {
+  if (reviews.length === 0 || isDialogOpen) return
+  setDirection('left')
+  setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length)
+  resetAutoplay()
+}
 
   const handleThumbnailClick = (index: number) => {
     // Determine direction for animation
@@ -89,12 +87,25 @@ export const TestimonialSlider = ({
     startAutoplay()
   }
 
-  // start/stop autoplay when reviews change or pause state changes
   useEffect(() => {
-    if (!isPaused) startAutoplay()
-    return () => stopAutoplay()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reviews, isPaused])
+  if (isDialogOpen) {
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = ''
+  }
+
+  return () => {
+    document.body.style.overflow = ''
+  }
+}, [isDialogOpen])
+
+  // start/stop autoplay when reviews change or pause state changes
+useEffect(() => {
+  if (!isPaused && !isDialogOpen) {
+    startAutoplay()
+  }
+  return () => stopAutoplay()
+}, [reviews, isPaused, isDialogOpen])
 
   // reset showFull whenever the active review changes
   useEffect(() => {
@@ -175,14 +186,16 @@ export const TestimonialSlider = ({
         {/* === Center Column: Main Image === */}
         <div
           className="relative order-1 h-full md:order-2 md:col-span-4"
-          onMouseEnter={() => {
-            setIsPaused(true)
-            stopAutoplay()
-          }}
-          onMouseLeave={() => {
-            setIsPaused(false)
-            startAutoplay()
-          }}
+       onMouseEnter={() => {
+  if (isDialogOpen) return
+  setIsPaused(true)
+  stopAutoplay()
+}}
+onMouseLeave={() => {
+  if (isDialogOpen) return
+  setIsPaused(false)
+  startAutoplay()
+}}
         >
           <AnimatePresence initial={false} custom={direction}>
             {activeReview && (
