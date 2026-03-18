@@ -354,7 +354,7 @@ const Programs = () => {
           {[
             { stat: '4', label: 'Specialized Tracks' },
             { stat: '100+', label: 'Patents Filed by Alumni' },
-            { stat: 'IEEE / ACM', label: 'Publication Outcomes' },
+            { stat: '50+', label: 'Publication Outcomes' },
             { stat: 'Global', label: 'Reach & Recognition' },
           ].map((item) => (
             <div key={item.label}>

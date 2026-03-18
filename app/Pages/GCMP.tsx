@@ -456,7 +456,7 @@ export default function CodingProgram() {
                   key={signal.label}
                   className="rounded-2xl border border-gray-100 bg-white p-4"
                 >
-                  <p className="text-xs text-[#FA773A]/60">{signal.label}</p>
+                  <p className="text-xs text-black/60">{signal.label}</p>
                   <p className="mt-3 text-lg font-semibold text-[#FA773A]">
                     {signal.value}
                   </p>

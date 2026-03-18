@@ -73,7 +73,7 @@ function FeatureCard({
       <span className="absolute top-3 right-3 h-1.5 w-1.5 rounded-sm bg-[#fd4f0c]" />
       <h3 className="mb-2 pr-4 text-sm font-semibold text-white">{title}</h3>
       <p className="text-xs leading-relaxed text-white/80">{description}</p>
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {hovered && (
           <motion.p
             key="cta"
@@ -86,7 +86,7 @@ function FeatureCard({
             Learn More
           </motion.p>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
     </motion.div>
   )
 }

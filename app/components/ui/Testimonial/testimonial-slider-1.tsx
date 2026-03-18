@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, ArrowRight, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from './button'
+import { ImageZoomModal } from '../ImageZoomModal'
 import type { TestimonialItem } from '../../TestimonialData'
 
 // Define the type for a single review
@@ -30,26 +31,35 @@ export const TestimonialSlider = ({
   const [isPaused, setIsPaused] = useState(false)
   const [showFull, setShowFull] = useState(false)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [zoomedImage, setZoomedImage] = useState<string | null>(null)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const AUTOPLAY_DELAY = 5000
-
+ const isZoomOpen = zoomedImage !== null
   const activeReview = reviews.length > 0 ? reviews[currentIndex] : undefined
 
-  const handleNext = () => {
-    if (reviews.length === 0 || isDialogOpen) return
-    setDirection('right')
-    setCurrentIndex((prev) => (prev + 1) % reviews.length)
-    // reset autoplay when user manually navigates
-    resetAutoplay()
+  useEffect(() => {
+  if (isZoomOpen) {
+    setIsPaused(true)
+    stopAutoplay()
+  } else {
+    setIsPaused(false)
+    startAutoplay()
   }
+}, [isZoomOpen])
 
-  const handlePrev = () => {
-    if (reviews.length === 0 || isDialogOpen) return
-    setDirection('left')
-    setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length)
-    // reset autoplay when user manually navigates
-    resetAutoplay()
-  }
+const handleNext = () => {
+  if (reviews.length === 0 || isDialogOpen  || isZoomOpen) return
+  setDirection('right')
+  setCurrentIndex((prev) => (prev + 1) % reviews.length)
+  resetAutoplay()
+}
+
+const handlePrev = () => {
+  if (reviews.length === 0 || isDialogOpen  || isZoomOpen) return
+  setDirection('left')
+  setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length)
+  resetAutoplay()
+}
 
   const handleThumbnailClick = (index: number) => {
     // Determine direction for animation
@@ -89,12 +99,25 @@ export const TestimonialSlider = ({
     startAutoplay()
   }
 
-  // start/stop autoplay when reviews change or pause state changes
   useEffect(() => {
-    if (!isPaused) startAutoplay()
-    return () => stopAutoplay()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reviews, isPaused])
+  if (isDialogOpen) {
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = ''
+  }
+
+  return () => {
+    document.body.style.overflow = ''
+  }
+}, [isDialogOpen])
+
+  // start/stop autoplay when reviews change or pause state changes
+useEffect(() => {
+ if (!isPaused && !isDialogOpen && !isZoomOpen) {
+    startAutoplay()
+  }
+  return () => stopAutoplay()
+}, [reviews, isPaused, isDialogOpen])
 
   // reset showFull whenever the active review changes
   useEffect(() => {
@@ -127,6 +150,8 @@ export const TestimonialSlider = ({
     }),
   }
 
+
+ 
   return (
     <div
       className={cn(
@@ -175,14 +200,16 @@ export const TestimonialSlider = ({
         {/* === Center Column: Main Image === */}
         <div
           className="relative order-1 h-full md:order-2 md:col-span-4"
-          onMouseEnter={() => {
-            setIsPaused(true)
-            stopAutoplay()
-          }}
-          onMouseLeave={() => {
-            setIsPaused(false)
-            startAutoplay()
-          }}
+       onMouseEnter={() => {
+  if (isDialogOpen) return
+  setIsPaused(true)
+  stopAutoplay()
+}}
+onMouseLeave={() => {
+  if (isDialogOpen) return
+  setIsPaused(false)
+  startAutoplay()
+}}
         >
           <AnimatePresence initial={false} custom={direction}>
             {activeReview && (
@@ -282,6 +309,7 @@ export const TestimonialSlider = ({
                         <div
                           key={idx}
                           className="group flex shrink-0 cursor-pointer flex-col items-center"
+                          onClick={() => setZoomedImage(item.image)}
                         >
                           <img
                             src={item.image}
@@ -321,6 +349,14 @@ export const TestimonialSlider = ({
           </div>
         </div>
       </div>
+
+      {/* Image Zoom Modal */}
+      <ImageZoomModal
+        isOpen={zoomedImage !== null}
+        imageUrl={zoomedImage || ''}
+        imageAlt="Zoomed outcome image"
+        onClose={() => setZoomedImage(null)}
+      />
 
       {/* Full Text Dialog */}
       {isDialogOpen && (
@@ -391,7 +427,8 @@ export const TestimonialSlider = ({
                           <img
                             src={item.image}
                             alt={item.label}
-                            className="mb-2 h-20 w-20 rounded-lg object-cover shadow-md"
+                            onClick={() => setZoomedImage(item.image)}
+                            className="mb-2 h-20 w-20 cursor-pointer rounded-lg object-cover shadow-md transition hover:opacity-80"
                           />
                           <span className="text-sm font-medium">
                             {item.label}
