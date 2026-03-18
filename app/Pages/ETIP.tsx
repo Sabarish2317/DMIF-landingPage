@@ -33,6 +33,7 @@ const fade = {
   },
 }
 
+
 export default function ETIPLanding() {
   return (
     <main className="relative min-h-screen bg-white">
@@ -57,7 +58,7 @@ export default function ETIPLanding() {
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/#contact"
-              className="inline-flex items-center gap-2 rounded-xl bg-[#FA773A] px-7 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+              className="inline-flex items-center gap-2 rounded-xl bg-[#FD4F0C] px-7 py-3 text-sm font-semibold text-white transition hover:opacity-90"
             >
               Apply for E-TIP <ArrowRight className="h-4 w-4" />
             </Link>
@@ -66,7 +67,7 @@ export default function ETIPLanding() {
       </section>
 
       {/* Key Stats */}
-      <section className="bg-[#FA773A] px-6 py-10 md:px-16" style={dotPattern}>
+      <section className="bg-[#FD4F0C] px-6 py-10 md:px-16" style={dotPattern}>
         <div className="mx-auto grid max-w-5xl grid-cols-2 gap-6 text-center md:grid-cols-4">
           {[
             { stat: '1:1', label: 'Mentorship' },
@@ -348,7 +349,7 @@ export default function ETIPLanding() {
             ))}
           </div>
 
-          <div className="mt-8 rounded-lg border border-[#FA773A] bg-[#FA773A]/5 p-6">
+          <div className="mt-8 rounded-lg border border-[#FA773A] bg-[#FD4F0C]/5 p-6">
             <h3 className="mb-2 text-lg font-semibold text-gray-900">
               Custom Track
             </h3>
@@ -432,7 +433,7 @@ export default function ETIPLanding() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-[#FA773A] px-6 py-20 sm:px-8 lg:px-16 lg:py-32">
+      <section style={dotPattern} className="bg-[#FD4F0C] px-6 py-20 sm:px-8 lg:px-16 lg:py-32">
         <div className="mx-auto max-w-4xl text-center">
           <h2 className="mb-6 text-3xl font-bold text-white lg:text-4xl xl:text-5xl">
             Ready to Reclaim Your Technical Leadership?

@@ -184,7 +184,7 @@ export default function Brain() {
             }}
           >
             {/* Badge */}
-            <div className="flex max-w-[380px] cursor-pointer items-center gap-4 overflow-hidden rounded-2xl bg-white pr-3">
+            <div className="flex max-w-95 cursor-pointer items-center gap-4 overflow-hidden rounded-2xl bg-white pr-3">
               <span className="z-15 shrink-0 rounded-2xl bg-[#2b2b2b] px-3 py-2.5 text-sm font-medium tracking-wide text-white ring ring-[#2b2b2b]">
                 {activeNews.length > 0 ? 'Announcement' : 'Vision'}
               </span>

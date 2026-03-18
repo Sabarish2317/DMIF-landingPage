@@ -14,6 +14,7 @@ import {
   LineChart,
   ChevronRight,
   Code,
+  Briefcase
 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -151,6 +152,17 @@ const CertificationsPage = () => {
         'Incident Response',
       ],
     },
+{
+  title: 'AI for CXOs',
+  icon: Briefcase,
+  status: 'Coming Soon',
+  highlights: [
+    'AI-Driven Decision Making',
+    'Business Forecasting',
+    'Operational Efficiency',
+    'Strategic Automation',
+  ],
+}
   ]
 
   return (
@@ -390,7 +402,7 @@ const CertificationsPage = () => {
               Domain-specific certifications launching in 2025.
             </p>
           </div>
-          <div className="grid gap-8 md:grid-cols-2">
+          <div className="grid gap-8 md:grid-cols-3">
             {specializations.map((spec, idx) => {
               const Icon = spec.icon
               return (

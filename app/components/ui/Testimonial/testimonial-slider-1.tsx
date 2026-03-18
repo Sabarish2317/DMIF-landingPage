@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, ArrowRight, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from './button'
+import { ImageZoomModal } from '../ImageZoomModal'
 import type { TestimonialItem } from '../../TestimonialData'
 
 // Define the type for a single review
@@ -30,20 +31,31 @@ export const TestimonialSlider = ({
   const [isPaused, setIsPaused] = useState(false)
   const [showFull, setShowFull] = useState(false)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [zoomedImage, setZoomedImage] = useState<string | null>(null)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const AUTOPLAY_DELAY = 5000
-
+ const isZoomOpen = zoomedImage !== null
   const activeReview = reviews.length > 0 ? reviews[currentIndex] : undefined
 
+  useEffect(() => {
+  if (isZoomOpen) {
+    setIsPaused(true)
+    stopAutoplay()
+  } else {
+    setIsPaused(false)
+    startAutoplay()
+  }
+}, [isZoomOpen])
+
 const handleNext = () => {
-  if (reviews.length === 0 || isDialogOpen) return
+  if (reviews.length === 0 || isDialogOpen  || isZoomOpen) return
   setDirection('right')
   setCurrentIndex((prev) => (prev + 1) % reviews.length)
   resetAutoplay()
 }
 
 const handlePrev = () => {
-  if (reviews.length === 0 || isDialogOpen) return
+  if (reviews.length === 0 || isDialogOpen  || isZoomOpen) return
   setDirection('left')
   setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length)
   resetAutoplay()
@@ -101,7 +113,7 @@ const handlePrev = () => {
 
   // start/stop autoplay when reviews change or pause state changes
 useEffect(() => {
-  if (!isPaused && !isDialogOpen) {
+ if (!isPaused && !isDialogOpen && !isZoomOpen) {
     startAutoplay()
   }
   return () => stopAutoplay()
@@ -138,6 +150,8 @@ useEffect(() => {
     }),
   }
 
+
+ 
   return (
     <div
       className={cn(
@@ -295,6 +309,7 @@ onMouseLeave={() => {
                         <div
                           key={idx}
                           className="group flex shrink-0 cursor-pointer flex-col items-center"
+                          onClick={() => setZoomedImage(item.image)}
                         >
                           <img
                             src={item.image}
@@ -334,6 +349,14 @@ onMouseLeave={() => {
           </div>
         </div>
       </div>
+
+      {/* Image Zoom Modal */}
+      <ImageZoomModal
+        isOpen={zoomedImage !== null}
+        imageUrl={zoomedImage || ''}
+        imageAlt="Zoomed outcome image"
+        onClose={() => setZoomedImage(null)}
+      />
 
       {/* Full Text Dialog */}
       {isDialogOpen && (
@@ -404,7 +427,8 @@ onMouseLeave={() => {
                           <img
                             src={item.image}
                             alt={item.label}
-                            className="mb-2 h-20 w-20 rounded-lg object-cover shadow-md"
+                            onClick={() => setZoomedImage(item.image)}
+                            className="mb-2 h-20 w-20 cursor-pointer rounded-lg object-cover shadow-md transition hover:opacity-80"
                           />
                           <span className="text-sm font-medium">
                             {item.label}
