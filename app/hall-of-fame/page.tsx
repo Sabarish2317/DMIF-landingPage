@@ -101,7 +101,7 @@ export default function HallOfFame() {
       </section>
 
       {/* Gallery Section */}
-      <section className="relative bg-[#0E0A18] py-16 md:py-24">
+      <section className="relative bg-[#0E0A18] pb-10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {allOutcomes.length === 0 ? (
             <div className="py-20 text-center">

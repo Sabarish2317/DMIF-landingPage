@@ -20,7 +20,7 @@ export default function BookingSection() {
   }, [])
 
   return (
-    <section className="mx-auto w-full py-12">
+    <section className="mx-auto w-full pt-12">
       <Cal
         calLink="/sabarish-vs/30min" // Replace with your actual Cal.com link
         style={{ width: '100%', height: '100%', overflow: 'hidden' }}
