@@ -11,9 +11,9 @@ const dotPattern = {
   backgroundSize: '10px 10px',
 }
 
-const fade = {
+const fade: any = {
   hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 }
 
 const tracks = [
