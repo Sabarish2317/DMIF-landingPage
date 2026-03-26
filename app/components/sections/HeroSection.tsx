@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from 'react'
 import dynamic from 'next/dynamic'
 import Button from '@/app/components/Button'
+import FeaturePillsMarquee from '@/app/components/FeaturePillsMarquee'
 import { brainScrollState } from '../brainScrollState'
 import { heroLoadState } from '../heroLoadState'
 import { supabase } from '@/lib/supabase'
@@ -44,6 +45,7 @@ export default function Brain() {
   // Intro animation targets
   const leftRef = useRef<HTMLElement>(null)
   const rightRef = useRef<HTMLElement>(null)
+  const rightRefMobile = useRef<HTMLElement>(null)
   const gridRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -126,6 +128,13 @@ export default function Brain() {
           rightRef.current.style.opacity = v.toFixed(3)
         }
       })
+      // Right content mobile: same animation (150ms delay)
+      animateRef(rightRefMobile.current, DURATION, 150, (v) => {
+        if (rightRefMobile.current) {
+          rightRefMobile.current.style.transform = `translateX(${(60 * (1 - v)).toFixed(2)}px)`
+          rightRefMobile.current.style.opacity = v.toFixed(3)
+        }
+      })
       // Bottom grid: translateY +40px → 0 + fade  (250ms delay)
       animateRef(gridRef.current, DURATION, 250, (v) => {
         if (gridRef.current) {
@@ -168,15 +177,15 @@ export default function Brain() {
       {/* Content overlay */}
       <div
         ref={contentRef}
-        className="absolute inset-0 z-20 flex flex-col justify-between px-8 py-8 md:px-16 lg:px-24"
+        className="absolute inset-0 z-20 flex flex-col justify-between px-4 py-6 sm:px-8 sm:py-8 md:px-16 lg:px-24"
         style={{ willChange: 'transform, opacity' }}
       >
         {/* Top section - Hero content */}
-        <div className="flex flex-1 flex-row items-center justify-between">
+        <div className="mt-24 mb-12 flex flex-1 flex-col items-center justify-between gap-8 md:flex-row md:gap-0">
           {/* Left content */}
           <section
             ref={leftRef as React.RefObject<HTMLElement>}
-            className="flex max-w-xl flex-col items-start justify-center gap-6"
+            className="flex w-full flex-col items-start justify-center gap-4 sm:gap-6 md:max-w-xl"
             style={{
               opacity: 0,
               transform: 'translateX(-60px)',
@@ -184,18 +193,18 @@ export default function Brain() {
             }}
           >
             {/* Badge */}
-            <div className="flex max-w-95 cursor-pointer items-center gap-4 overflow-hidden rounded-2xl bg-white pr-3">
-              <span className="z-15 shrink-0 rounded-2xl bg-[#2b2b2b] px-3 py-2.5 text-sm font-medium tracking-wide text-white ring ring-[#2b2b2b]">
+            <div className="flex w-full max-w-sm cursor-pointer items-center gap-4 overflow-hidden rounded-2xl bg-white pr-3 sm:max-w-95">
+              <span className="z-15 shrink-0 rounded-2xl bg-[#2b2b2b] px-3 py-2.5 text-xs font-medium tracking-wide text-white ring ring-[#2b2b2b] sm:text-sm">
                 {activeNews.length > 0 ? 'Announcement' : 'Vision'}
               </span>
 
-              <div className="relative z-12">
-                <div className="animate-marquee flex gap-10 whitespace-nowrap">
+              <div className="relative z-12 w-full overflow-hidden">
+                <div className="animate-marquee flex gap-10 whitespace-nowrap md:animate-none">
                   {[...activeMarquee, ...activeMarquee].map(
                     (item: any, index) => (
                       <span
                         key={index}
-                        className="text-md font-medium text-[#2b2b2b] hover:underline"
+                        className="sm:text-md text-xs font-medium text-[#2b2b2b] hover:underline"
                         dangerouslySetInnerHTML={{ __html: item.message }}
                       />
                     )
@@ -205,14 +214,14 @@ export default function Brain() {
             </div>
 
             {/* Heading */}
-            <h1 className="font-inter text-[56px] leading-[1.15] font-medium tracking-tight text-white">
+            <h1 className="font-inter text-3xl leading-[1.15] font-medium tracking-tight text-white sm:text-4xl md:text-5xl lg:text-[56px]">
               Dr. Madhan
               <br />
               Institute of Future
             </h1>
 
             {/* Subheading */}
-            <p className="text-xl leading-[1.2] font-medium tracking-wide text-white">
+            <p className="text-base leading-[1.2] font-medium tracking-wide text-white sm:text-lg md:text-xl">
               Founded by an <span className="font-bold">IIM Calcutta</span>{' '}
               Alumnus and a globally
               <br />
@@ -220,17 +229,17 @@ export default function Brain() {
             </p>
 
             {/* Buttons */}
-            <div className="flex items-center gap-3">
+            <div className="flex w-full flex-row items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center">
               <Button
                 variant="fill"
                 onClick={handleScrollToCTA}
-                className="text-md bg-white text-[#fd4f0c]!"
+                className="sm:text-md bg-white text-xs text-[#fd4f0c]!"
               >
                 Book a Meet →
               </Button>
               <Button
                 variant="fill"
-                className="text-md bg-[#2b2b2b]! text-white!"
+                className="sm:text-md bg-[#2b2b2b]! text-xs text-white!"
               >
                 View Programs
               </Button>
@@ -238,9 +247,20 @@ export default function Brain() {
           </section>
 
           {/* Right content - Feature pills */}
+          {/* Mobile Marquee View */}
+          <FeaturePillsMarquee
+            ref={rightRefMobile}
+            style={{
+              opacity: 0,
+              transform: 'translateX(60px)',
+              willChange: 'transform, opacity',
+            }}
+          />
+
+          {/* Desktop/Tablet View */}
           <section
             ref={rightRef as React.RefObject<HTMLElement>}
-            className="flex flex-col items-end justify-center gap-4"
+            className="hidden md:flex w-full md:w-auto flex-col items-start justify-center gap-3 md:items-end md:gap-4"
             style={{
               opacity: 0,
               transform: 'translateX(60px)',
@@ -255,12 +275,12 @@ export default function Brain() {
               { highlight: 'Active Learning', label: 'Methodology' },
             ].map((item, i) => (
               <React.Fragment key={i + item.label}>
-                <div className="rounded-lg bg-white px-3 py-1 text-[16px] font-medium tracking-wide backdrop-blur-sm">
+                <div className="rounded-lg bg-white px-3 py-1 text-sm font-medium tracking-wide backdrop-blur-sm sm:text-[16px]">
                   <span className="text-[#fd4f0c]">{item.highlight}</span>{' '}
                   <span className="text-black">{item.label}</span>
                 </div>
                 {i != 4 && (
-                  <div className="circle h-3 w-3 rounded-full bg-white" />
+                  <div className="circle hidden h-3 w-3 rounded-full bg-white md:block" />
                 )}
               </React.Fragment>
             ))}
@@ -270,7 +290,7 @@ export default function Brain() {
         {/* Bottom section - Stats cards */}
         <div
           ref={gridRef}
-          className="grid grid-cols-3 gap-6"
+          className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 md:gap-6"
           style={{
             opacity: 0,
             transform: 'translateY(40px)',
@@ -296,18 +316,18 @@ export default function Brain() {
           ].map((stat, i) => (
             <div
               key={i}
-              className="flex flex-col gap-3 rounded-lg bg-white p-3"
+              className="flex flex-col gap-2 rounded-lg bg-white p-3 sm:gap-3 sm:p-4"
             >
               <div className="flex items-start justify-between">
-                <span className="text-md font-inter font-medium text-[#2b2b2b]">
+                <span className="md:text-md font-inter line-clamp-2 text-xs font-medium text-[#2b2b2b] sm:text-sm">
                   {stat.title}
                 </span>
-                <span className="h-1.5 w-1.5 rounded-full bg-[#fd4f0c]" />
+                <span className="ml-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#fd4f0c]" />
               </div>
-              <span className="text-xl font-medium text-[#fa773a]">
+              <span className="text-base font-medium text-[#fa773a] sm:text-lg md:text-xl">
                 {stat.value}
               </span>
-              <span className="text-md font-medium text-[#2b2b2b]">
+              <span className="md:text-md text-xs leading-tight font-medium text-[#2b2b2b] sm:text-sm">
                 {stat.description}
               </span>
             </div>
