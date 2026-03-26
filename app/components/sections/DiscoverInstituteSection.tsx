@@ -12,7 +12,7 @@ const instituteSectionData = {
   buttonText: 'Book a Meet',
   buttonLink: '/contact',
   videoUrl:
-    'https://dmifstorage.blob.core.windows.net/course-1-videos/DMIF_Video.mp4?sv=2024-11-04&ss=bfqt&srt=sc&sp=rwlacuptf&se=2026-06-18T20:06:10Z&st=2026-02-18T11:51:10Z&spr=https&sig=BN4mY07o8x1dfn3Pq5Os%2FbJBR07gA32Q%2FLM98TVs4YM%3D',
+    'https://dmifstorage.blob.core.windows.net/course-1-videos/DMIF_Video.mp4?sp=racwdl&st=2026-03-23T05:22:18Z&se=2027-03-23T13:37:18Z&spr=https&sv=2024-11-04&sr=c&sig=%2F%2BmuoUu2fMrZsDIcDxo%2BO13qyYujxZ3XBKO5hc01Osg%3D',
   cards: [
     {
       title: 'Facilities',

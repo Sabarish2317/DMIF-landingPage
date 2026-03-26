@@ -4,7 +4,7 @@ import CalEmbed from '@/app/components/common/CalEmbed'
 
 export default function CTASection() {
   return (
-    <section className="flex h-max w-full flex-col items-center justify-center bg-[#0E0A18] px-4 py-16 text-center md:py-20">
+    <section className="flex h-max w-full flex-col items-center justify-center bg-[#0E0A18] px-4 pt-16 text-center md:pt-20">
       <div className="mx-auto text-center">
         {/* Heading */}
         <h2 className="text-3xl leading-tight font-bold text-white sm:text-4xl md:text-5xl">
