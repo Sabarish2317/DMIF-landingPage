@@ -60,31 +60,31 @@ export default function FounderSection() {
 
           {/* Social Icons */}
           <div className="flex md:justify-end gap-3">
-            <a href="https://linkedin.com" target="_blank">
+            <a href="https://www.linkedin.com/in/drmadhaniimcal/" target="_blank">
               <div className="bg-white text-[#FD4F0C] p-2 rounded-md hover:scale-110 transition">
                 <Linkedin size={18} />
               </div>
             </a>
 
-            <a href="mailto:example@gmail.com">
+            <a href="mailto:madhan@drmadhan.org" target="_blank">
               <div className="bg-white text-[#FD4F0C] p-2 rounded-md hover:scale-110 transition">
                 <Mail size={18} />
               </div>
             </a>
 
-            <a href="https://instagram.com" target="_blank">
+            <a href="https://www.instagram.com/madhankrs?igsh=MWNleTI1Mmh1bmF5dQ%3D%3D" target="_blank">
               <div className="bg-white text-[#FD4F0C] p-2 rounded-md hover:scale-110 transition">
                 <Instagram size={18} />
               </div>
             </a>
 
-            <a href="https://youtube.com" target="_blank">
+            <a href="https://www.youtube.com/@madhankumarsrinivasan" target="_blank">
               <div className="bg-white text-[#FD4F0C] p-2 rounded-md hover:scale-110 transition">
                 <Youtube size={18} />
               </div>
             </a>
 
-            <a href="https://facebook.com" target="_blank">
+            <a href="https://www.facebook.com/madhankrs?mibextid=wwXIfr" target="_blank">
               <div className="bg-white text-[#FD4F0C] p-2 rounded-md hover:scale-110 transition">
                 <Facebook size={18} />
               </div>

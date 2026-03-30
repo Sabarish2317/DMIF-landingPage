@@ -34,7 +34,6 @@ export default function Footer() {
         { label: 'Founder Story', href: '#founder' },
         { label: 'Hall of Fame', href: '/hall-of-fame' },
         { label: 'Contact Us', href: '#contact' },
-        { label: 'Our Mission', href: '#mission' },
       ],
     },
     {
@@ -141,37 +140,76 @@ export default function Footer() {
               </p>
             </div>
 
-            {/* Social Links */}
-            <div className="flex gap-4 sm:gap-6 items-center">
-              <Link
-                href="#"
-                className="text-white/60 hover:text-white transition-colors"
-                aria-label="Twitter"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75 2.25 7-7 7-7a10.6 10.6 0 01-9.5 5" />
-                </svg>
-              </Link>
-              <Link
-                href="#"
-                className="text-white/60 hover:text-white transition-colors"
-                aria-label="LinkedIn"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
-                  <circle cx="4" cy="4" r="2" />
-                </svg>
-              </Link>
-              <Link
-                href="#"
-                className="text-white/60 hover:text-white transition-colors"
-                aria-label="Github"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                </svg>
-              </Link>
-            </div>
+<div className="flex gap-4 sm:gap-6 items-center">
+  {/* LinkedIn */}
+  <Link
+      href="https://www.linkedin.com/company/drmadhan/"
+  target="_blank"
+  rel="noopener noreferrer"
+    className="text-white/60 hover:text-white transition-colors"
+    aria-label="LinkedIn"
+  >
+    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 
+        2.761 2.239 5 5 5h14c2.761 0 5-2.239 
+        5-5v-14c0-2.761-2.239-5-5-5zm-11 
+        19h-3v-10h3v10zm-1.5-11.268c-.966 
+        0-1.75-.79-1.75-1.764s.784-1.764 
+        1.75-1.764 1.75.79 
+        1.75 1.764-.784 1.764-1.75 
+        1.764zm13.5 11.268h-3v-5.604c0-1.337-.026-3.059-1.865-3.059-1.865 
+        0-2.151 1.454-2.151 2.959v5.704h-3v-10h2.881v1.367h.041c.401-.761 
+        1.381-1.561 2.845-1.561 3.044 0 3.604 2.003 
+        3.604 4.609v5.585z" />
+    </svg>
+  </Link>
+
+  {/* YouTube */}
+  <Link
+     href="https://www.youtube.com/@Dr.MadhanInstituteofFuture"
+  target="_blank"
+  rel="noopener noreferrer"
+    className="text-white/60 hover:text-white transition-colors"
+    aria-label="YouTube"
+  >
+    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M23.498 6.186a2.996 2.996 0 00-2.11-2.122C19.505 
+        3.5 12 3.5 12 3.5s-7.505 0-9.388.564A2.996 
+        2.996 0 00.502 6.186 31.284 31.284 0 
+        000 12a31.284 31.284 0 00.502 
+        5.814 2.996 2.996 0 002.11 
+        2.122C4.495 20.5 12 20.5 12 
+        20.5s7.505 0 9.388-.564a2.996 
+        2.996 0 002.11-2.122A31.284 
+        31.284 0 0024 12a31.284 31.284 
+        0 00-.502-5.814zM9.75 15.568V8.432L15.818 
+        12 9.75 15.568z" />
+    </svg>
+  </Link>
+
+  {/* Instagram */}
+  <Link
+      href="https://www.instagram.com/dr_madhan_institute/"
+  target="_blank"
+  rel="noopener noreferrer"
+    className="text-white/60 hover:text-white transition-colors"
+    aria-label="Instagram"
+  >
+    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M7.75 2h8.5C19.216 2 22 4.784 22 
+        7.75v8.5C22 19.216 19.216 22 16.25 
+        22h-8.5C4.784 22 2 19.216 2 
+        16.25v-8.5C2 4.784 4.784 2 7.75 
+        2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 
+        3.75 0 007.75 20h8.5A3.75 3.75 0 
+        0020 16.25v-8.5A3.75 3.75 0 
+        0016.25 4h-8.5zm4.25 3a5 5 0 110 
+        10 5 5 0 010-10zm0 2a3 3 0 100 
+        6 3 3 0 000-6zm5.25-.9a1.1 1.1 0 
+        110 2.2 1.1 1.1 0 010-2.2z" />
+    </svg>
+  </Link>
+</div>
           </div>
         </motion.div>
       </div>

@@ -27,7 +27,7 @@ export default function LandingPage() {
         <div id="testimonials">
           <Testimonial />
         </div>
-        <div id="hall-of-fame">
+        <div id="founder">
           <FounderSection />
         </div>
         <div id="contact">
