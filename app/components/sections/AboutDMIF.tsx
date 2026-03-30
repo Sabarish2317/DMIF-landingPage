@@ -77,16 +77,16 @@ interface CardData {
 
 function DMIFCard({ card }: { card: CardData }) {
   return (
-    <div className="flex w-full flex-col gap-3 rounded-lg bg-white p-4 shadow-xl sm:gap-4 sm:rounded-xl sm:p-6">
+    <div className="flex w-full flex-col gap-4 rounded-xl bg-white p-6 shadow-xl">
       <span
-        className="w-fit py-0.5 text-xs font-semibold tracking-widest uppercase"
+        className="w-fit py-1 text-xs font-semibold tracking-widest uppercase"
         style={{ color: card.tagColor }}
       >
         {card.tag}
       </span>
 
       <div
-        className="flex h-24 sm:h-36 w-full items-center justify-center rounded-lg sm:rounded-xl"
+        className="flex h-36 w-full items-center justify-center rounded-xl"
         style={{ backgroundColor: card.accentBg }}
       >
         {/* <span
@@ -101,15 +101,13 @@ function DMIFCard({ card }: { card: CardData }) {
       </div>
 
       <h4
-        className="text-base leading-snug font-semibold sm:text-xl"
+        className="text-xl leading-snug font-semibold"
         style={{ color: card.tagColor }}
       >
         {card.title}
       </h4>
 
-      <p className="text-xs leading-relaxed text-[#444] sm:text-sm">
-        {card.description}
-      </p>
+      <p className="text-sm leading-relaxed text-[#444]">{card.description}</p>
     </div>
   )
 }
@@ -246,18 +244,18 @@ export default function AboutDMIF() {
       </div> */}
 
       {/* Sticky viewport */}
-      <div className="sticky top-0 flex flex-col h-screen gap-6 items-center justify-center px-4 py-8 sm:px-8 sm:py-16 md:px-16 md:gap-8 lg:px-24">
-        {/* ── Logo at top ── */}
+      <div className="sticky top-0 flex h-screen flex-row items-center justify-between gap-8 px-8 py-16 md:px-16 lg:px-24">
+        {/* ── Left — locked ── */}
         <div
           ref={leftRef}
-          className="flex shrink-0 flex-col items-center justify-center gap-2 w-full sm:w-auto order-1"
+          className="flex shrink-0 flex-col items-center justify-center gap-2"
           style={{
             opacity: 0,
-            transform: 'translateY(-80px)',
+            transform: 'translateX(-80px)',
             willChange: 'transform, opacity',
           }}
         >
-          <div className="h-40 w-40 sm:h-56 sm:w-56 md:h-72 md:w-64">
+          <div className="h-72 w-64">
             <Image
               src="/icons/logo.svg"
               alt="DMIF Logo"
@@ -266,22 +264,22 @@ export default function AboutDMIF() {
               className="h-full w-full object-contain"
             />
           </div>
-          <div className="flex flex-col items-center gap-2 text-center">
-            <span className="h-1.5 w-1.5 rounded-full bg-white sm:h-2 sm:w-2" />
-            <h2 className="text-lg font-bold text-white sm:text-xl md:text-2xl">
+          <div className="flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-white" />
+            <h2 className="text-2xl font-bold text-white">
               Innovators Today; Entrepreneurs Tomorrow!
             </h2>
           </div>
 
           {/* Progress pips — driven imperatively */}
-          <div className="flex gap-1.5 sm:gap-2">
+          <div className="flex gap-2">
             {CARDS.map((_, i) => (
               <span
                 key={i}
                 ref={(el) => {
                   pipRefs.current[i] = el
                 }}
-                className="h-1.5 w-1.5 rounded-full sm:h-2 sm:w-2"
+                className="h-2 w-2 rounded-full"
                 style={{
                   backgroundColor: i === 0 ? 'white' : 'rgba(255,255,255,0.35)',
                 }}
@@ -290,13 +288,13 @@ export default function AboutDMIF() {
           </div>
         </div>
 
-        {/* ── Cards at bottom ── */}
+        {/* ── Right — card deck ── */}
         <div
           ref={rightRef}
-          className="relative h-72 sm:h-80 md:h-96 w-full max-w-md overflow-hidden order-2"
+          className="relative h-full w-full max-w-md overflow-hidden"
           style={{
             opacity: 0,
-            transform: 'translateY(80px)',
+            transform: 'translateX(80px)',
             willChange: 'transform, opacity',
           }}
         >
@@ -306,7 +304,7 @@ export default function AboutDMIF() {
               ref={(el) => {
                 cardRefs.current[i] = el
               }}
-              className="absolute top-1/2 right-0 left-0 px-2 sm:px-0"
+              className="absolute top-1/2 right-0 left-0"
               style={{
                 zIndex: i + 1,
                 transform: `translateY(calc(-50% + 90vh)) scale(1)`,
