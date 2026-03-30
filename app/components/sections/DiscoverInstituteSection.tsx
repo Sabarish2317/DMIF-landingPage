@@ -52,10 +52,10 @@ export default function DiscoverInstituteSection() {
           backgroundSize: '12px 12px',
         }}
       >
-        <div className="flex w-max flex-col items-center justify-center gap-3 self-center-safe text-center">
-          <h2 className="font-inter text-3xl font-semibold tracking-tight text-white md:text-[2.5rem]">
-            {instituteSectionData.title}
-          </h2>
+  <div className="flex w-full max-w-2xl flex-col items-center justify-center gap-3 text-center">
+  <h2 className="font-inter text-2xl sm:text-3xl md:text-4xl lg:text-[2.5rem] font-semibold tracking-tight text-white">
+    {instituteSectionData.title}
+  </h2>
           <p className="text-base leading-relaxed text-white/80">
             Get to know us in 3 Minutes! Watch our introduction video to explore
             who we are, what we do, and how <br /> we can help you achieve your
