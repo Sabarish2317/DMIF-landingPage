@@ -59,108 +59,105 @@ const Activities = () => {
   }, [selectedEvent, isPaused])
 
   return (
-    <section className="flex h-screen items-center justify-center bg-white px-4 py-12 md:px-12">
-      <div className="max-w-8xl mx-auto px-4">
+    <section className="flex min-h-screen w-full flex-col bg-white px-4 py-8 sm:px-6 md:px-12">
+      <div className="w-full max-w-8xl mx-auto flex flex-col gap-8">
         {/* Heading */}
-        <div className="mb-12 text-center">
-          <h2 className="text-3xl font-bold md:text-4xl">Activities</h2>
-          <p className="mt-2 text-gray-500">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold sm:text-3xl md:text-4xl">Activities</h2>
+          <p className="mt-2 text-sm text-gray-500 sm:text-base">
             Events that are undertaken and participated by the team
           </p>
         </div>
 
-        {/* MAIN GRID */}
-        <div className="grid gap-6 md:grid-cols-[120px_1fr_380px]">
-          {/* ================= LEFT SMALL THUMBNAILS ================= */}
-          <div className="hidden flex-col gap-3 md:flex">
-            {selectedEvent?.images?.map((img, index) => (
-              <img
-                key={index}
-                src={img}
-                onClick={() => setSelectedImageIndex(index)}
-                className={`h-16 w-full cursor-pointer rounded-lg border-2 object-cover transition ${
-                  selectedImageIndex === index
-                    ? 'border-[#FD4F0C]'
-                    : 'border-transparent'
-                }`}
-              />
-            ))}
-          </div>
-
-          {/* ================= CENTER MAIN IMAGE ================= */}
-          <div
-            className="relative overflow-hidden rounded-xl shadow-lg"
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-          >
+        {/* Main image at top */}
+        <div
+          className="rounded-lg shadow-lg md:rounded-xl"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          <div className="relative overflow-hidden rounded-lg md:rounded-xl">
             {selectedEvent && (
               <img
                 src={selectedEvent.images[selectedImageIndex]}
-                className="h-100 w-full object-cover transition-all duration-500 md:h-130"
+                className="h-48 w-full object-cover transition-all duration-500 sm:h-72 md:h-96"
               />
             )}
 
             {/* Overlay */}
-            <div className="absolute bottom-0 left-0 w-full bg-linear-to-t from-black/80 to-transparent p-6 text-white">
-              <h3 className="text-xl font-semibold md:text-2xl">
+            <div className="absolute bottom-0 left-0 w-full bg-linear-to-t from-black/80 to-transparent p-4 text-white sm:p-5 md:p-6">
+              <h3 className="text-lg font-semibold sm:text-xl md:text-2xl">
                 {selectedEvent?.title}
               </h3>
-              <p className="text-sm">{selectedEvent?.location}</p>
+              <p className="text-xs sm:text-sm">{selectedEvent?.location}</p>
               <p className="text-xs">
                 {new Date(selectedEvent?.event_date || '').toDateString()}
               </p>
             </div>
           </div>
+        </div>
 
-          {/* ================= RIGHT SIDE EVENTS ================= */}
-          <div
-            className={`flex flex-col gap-2 overflow-visible overflow-y-scroll md:pr-2 ${styles.customScrollbar}`}
-            style={{ maxHeight: '520px' }}
-          >
-            {events.map((event) => {
-              const isActive = selectedEvent?.id === event.id
+        {/* Thumbnails scroll */}
+        <div className="flex flex-row gap-2 overflow-x-auto pb-2">
+          {selectedEvent?.images?.map((img, index) => (
+            <img
+              key={index}
+              src={img}
+              onClick={() => setSelectedImageIndex(index)}
+              className={`h-16 w-16 shrink-0 cursor-pointer rounded-lg border-2 object-cover transition sm:h-20 sm:w-20 ${
+                selectedImageIndex === index
+                  ? 'border-[#FD4F0C]'
+                  : 'border-transparent'
+              }`}
+            />
+          ))}
+        </div>
 
-              return (
+        {/* Events horizontal scroll at bottom */}
+        <div
+          className={`flex flex-row gap-2 overflow-x-auto pb-2 ${styles.customScrollbar}`}
+        >
+          {events.map((event) => {
+            const isActive = selectedEvent?.id === event.id
+
+            return (
+              <div
+                key={event.id}
+                onClick={() => setSelectedEvent(event)}
+                className={`relative shrink-0 cursor-pointer rounded-lg p-4 transition-all duration-300 sm:rounded-xl sm:p-5 min-w-72 sm:min-w-80 ${
+                  isActive
+                    ? 'border-2 border-[#FD4F0C] bg-[#FD4F0C] text-white'
+                    : 'border-2 border-gray-200 bg-gray-50'
+                }`}
+              >
+                {/* Status Dot */}
                 <div
-                  key={event.id}
-                  onClick={() => setSelectedEvent(event)}
-                  className={`relative mb-2 cursor-pointer rounded-xl p-5 transition-all duration-300 md:min-w-full ${
-                    isActive
-                      ? 'border-2 border-[#FD4F0C] bg-[#FD4F0C] text-white'
-                      : 'border-2 border-gray-200 bg-gray-50'
-                  } `}
-                  style={{ minWidth: '280px' }}
+                  className={`absolute top-3 right-3 h-1.5 w-1.5 rounded-full sm:h-2 sm:w-2 ${
+                    isActive ? 'bg-white' : 'bg-[#FD4F0C]'
+                  }`}
+                ></div>
+
+                <p className="text-xs font-medium text-black sm:text-sm">
+                  {event.location}
+                </p>
+
+                <h4
+                  className={`mt-1 text-sm font-semibold sm:text-base ${
+                    isActive ? 'text-white' : 'text-[#FD4F0C]'
+                  }`}
                 >
-                  {/* Status Dot */}
-                  <div
-                    className={`absolute top-3 right-3 h-2 w-2 rounded-full ${
-                      isActive ? 'bg-white' : 'bg-[#FD4F0C]'
-                    }`}
-                  ></div>
+                  {event.title}
+                </h4>
 
-                  <p className="text-sm font-medium text-black">
-                    {event.location}
-                  </p>
-
-                  <h4
-                    className={`mt-1 text-base font-semibold ${
-                      isActive ? 'text-white' : 'text-[#FD4F0C]'
-                    }`}
-                  >
-                    {event.title}
-                  </h4>
-
-                  <p
-                    className={`mt-2 text-sm ${
-                      isActive ? 'text-white/90' : 'text-gray-500'
-                    }`}
-                  >
-                    {event.description}
-                  </p>
-                </div>
-              )
-            })}
-          </div>
+                <p
+                  className={`mt-2 text-xs sm:text-sm ${
+                    isActive ? 'text-white/90' : 'text-gray-500'
+                  }`}
+                >
+                  {event.description}
+                </p>
+              </div>
+            )
+          })}
         </div>
       </div>
     </section>

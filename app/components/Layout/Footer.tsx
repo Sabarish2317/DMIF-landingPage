@@ -55,8 +55,8 @@ export default function Footer() {
       <div className="absolute inset-0 bg-linear-to-r from-[#FD4F0C] via-[#ff5a1f] to-[#FD4F0C]" />
 
       {/* Background watermark */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none">
-        <h1 className="text-[90px] sm:text-[140px] md:text-[200px] font-bold opacity-5 select-none leading-none whitespace-nowrap">
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none overflow-hidden">
+        <h1 className="text-[60px] sm:text-[90px] md:text-[140px] lg:text-[200px] font-bold opacity-5 select-none leading-none whitespace-nowrap">
           DMIF
         </h1>
       </div>
@@ -64,7 +64,7 @@ export default function Footer() {
       {/* Content */}
       <div className="relative z-10">
         {/* Main Footer Content */}
-        <div className="px-6 md:px-12 pt-12">
+        <div className="px-4 pt-8 sm:px-6 sm:pt-12 md:px-12">
           <motion.div
             className="max-w-7xl mx-auto"
             variants={containerVariants}
@@ -77,37 +77,38 @@ export default function Footer() {
 
             {/* Footer Grid */}
             <motion.div
-              className="flex justify-between gap-8 md:gap-12 mb-12"
+              className="flex flex-col gap-8 mb-8 sm:gap-10 sm:mb-12 md:flex-row md:justify-between md:gap-12 md:mb-12"
               variants={containerVariants}
             >
- <motion.div variants={itemVariants} className="mb-16">
-              <div className="flex items-center gap-3 mb-4">
+ <motion.div variants={itemVariants} className="mb-8 sm:mb-10 md:mb-0">
+              <div className="flex items-center gap-2 sm:gap-3 mb-4">
                 <Image
                   src="/icons/logs.webp"
                   alt="DMIF Logo"
-                  width={50}
-                  height={50}
+                  width={40}
+                  height={40}
+                  className="sm:w-12.5 sm:h-12.5"
                 />
-                <h2 className="text-2xl md:text-3xl font-bold text-white">
+                <h2 className="text-xl font-bold text-white sm:text-2xl md:text-3xl">
                   DMIF™
                 </h2>
               </div>
-              <p className="text-white/80 max-w-md text-sm md:text-base">
+              <p className="text-white/80 max-w-md text-xs sm:text-sm md:text-base">
                 Empowering innovation through mentorship, technology immersion,
                 and professional development worldwide.
               </p>
             </motion.div>
               {footerSections.map((section) => (
                 <motion.div key={section.title} variants={itemVariants}>
-                  <h3 className="font-semibold text-white text-sm md:text-base mb-4 uppercase tracking-wide">
+                  <h3 className="font-semibold text-white text-xs uppercase tracking-wide sm:text-sm md:text-base mb-3 md:mb-4">
                     {section.title}
                   </h3>
-                  <ul className="space-y-3">
+                  <ul className="space-y-2 sm:space-y-3">
                     {section.links.map((link) => (
                       <li key={link.label}>
                         <Link
                           href={link.href}
-                          className="text-white/70 hover:text-white transition-colors text-sm duration-300"
+                          className="text-white/70 hover:text-white transition-colors text-xs sm:text-sm duration-300"
                         >
                           {link.label}
                         </Link>
@@ -125,15 +126,15 @@ export default function Footer() {
 
         {/* Bottom Section */}
         <motion.div
-          className="px-6 md:px-12 py-8"
+          className="px-4 py-6 sm:px-6 sm:py-8 md:px-12"
           variants={itemVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
         >
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="max-w-7xl mx-auto flex flex-col gap-6 sm:gap-6 md:flex-row md:justify-between md:items-center">
             {/* Copyright */}
-            <div className="text-white/60 text-xs md:text-sm">
+            <div className="text-white/60 text-xs sm:text-sm">
               <p>
                 © {currentYear} DMIF. All rights reserved. |{' '}
                 <span className="text-white/40">Designed & Developed with ❤️</span>
@@ -141,7 +142,7 @@ export default function Footer() {
             </div>
 
             {/* Social Links */}
-            <div className="flex gap-6 items-center">
+            <div className="flex gap-4 sm:gap-6 items-center">
               <Link
                 href="#"
                 className="text-white/60 hover:text-white transition-colors"
