@@ -3,9 +3,8 @@
 /**
  * HalftoneBg
  *
- * A pure-Canvas2D replica of the halftone post-processing pass used in
- * BrainCanvas.tsx.  It matches the same shader parameters so both layers
- * look visually identical:
+ * A pure Canvas2D halftone background.
+ * It uses tuned parameters to render a dense orange-dot texture:
  *
  *   gridSize    = 6     (px between cell centres)
  *   gridSpacing = -1.2  (negative = dots overlap slightly)
@@ -24,13 +23,11 @@
 
 import { useEffect, useRef } from 'react'
 
-// ── Match BrainCanvas HalftonePostProcessing defaults exactly ──────────────
+// Halftone texture parameters
 const GRID_SIZE = 4 // u_gridSize
 const GRID_SPACING = -5 // overlap amount
 const DOT_RADIUS = (GRID_SIZE - GRID_SPACING) / 2 // = 3.6
-// BrainCanvas shader: orange dots (#fe4709) on white background
-// The halftone post-process runs over the rendered scene;
-// over the orange background the output is orange dots on white.
+// Orange dots on white background
 const DOT_COLOR = '#fe4709'
 const BG_COLOR = '#ffffff'
 

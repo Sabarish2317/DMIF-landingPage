@@ -2,7 +2,7 @@
  * heroLoadState
  *
  * Zero-React pub/sub for hero load state.
- * BrainCanvas calls setReady() after the GLTF resolves.
+ * HeroSection calls setReady() once its UI is ready.
  * TopNav + HeroSection subscribe to fire their intro animations.
  */
 
