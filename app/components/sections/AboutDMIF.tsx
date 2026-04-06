@@ -238,7 +238,7 @@ export default function AboutDMIF() {
         backgroundSize: '12px 12px',
       }}
     >
-      {/* Halftone dither background — matches BrainCanvas post-processing */}
+      {/* Halftone dither background */}
       {/* <div className="pointer-events-none absolute inset-0 z-0">
         <HalftoneBg className="h-full w-full" />
       </div> */}

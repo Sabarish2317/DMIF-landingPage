@@ -34,32 +34,32 @@ export const TestimonialSlider = ({
   const [zoomedImage, setZoomedImage] = useState<string | null>(null)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const AUTOPLAY_DELAY = 5000
- const isZoomOpen = zoomedImage !== null
+  const isZoomOpen = zoomedImage !== null
   const activeReview = reviews.length > 0 ? reviews[currentIndex] : undefined
 
   useEffect(() => {
-  if (isZoomOpen) {
-    setIsPaused(true)
-    stopAutoplay()
-  } else {
-    setIsPaused(false)
-    startAutoplay()
+    if (isZoomOpen) {
+      setIsPaused(true)
+      stopAutoplay()
+    } else {
+      setIsPaused(false)
+      startAutoplay()
+    }
+  }, [isZoomOpen])
+
+  const handleNext = () => {
+    if (reviews.length === 0 || isDialogOpen || isZoomOpen) return
+    setDirection('right')
+    setCurrentIndex((prev) => (prev + 1) % reviews.length)
+    resetAutoplay()
   }
-}, [isZoomOpen])
 
-const handleNext = () => {
-  if (reviews.length === 0 || isDialogOpen  || isZoomOpen) return
-  setDirection('right')
-  setCurrentIndex((prev) => (prev + 1) % reviews.length)
-  resetAutoplay()
-}
-
-const handlePrev = () => {
-  if (reviews.length === 0 || isDialogOpen  || isZoomOpen) return
-  setDirection('left')
-  setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length)
-  resetAutoplay()
-}
+  const handlePrev = () => {
+    if (reviews.length === 0 || isDialogOpen || isZoomOpen) return
+    setDirection('left')
+    setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length)
+    resetAutoplay()
+  }
 
   const handleThumbnailClick = (index: number) => {
     // Determine direction for animation
@@ -100,24 +100,24 @@ const handlePrev = () => {
   }
 
   useEffect(() => {
-  if (isDialogOpen) {
-    document.body.style.overflow = 'hidden'
-  } else {
-    document.body.style.overflow = ''
-  }
+    if (isDialogOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
 
-  return () => {
-    document.body.style.overflow = ''
-  }
-}, [isDialogOpen])
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isDialogOpen])
 
   // start/stop autoplay when reviews change or pause state changes
-useEffect(() => {
- if (!isPaused && !isDialogOpen && !isZoomOpen) {
-    startAutoplay()
-  }
-  return () => stopAutoplay()
-}, [reviews, isPaused, isDialogOpen])
+  useEffect(() => {
+    if (!isPaused && !isDialogOpen && !isZoomOpen) {
+      startAutoplay()
+    }
+    return () => stopAutoplay()
+  }, [reviews, isPaused, isDialogOpen])
 
   // reset showFull whenever the active review changes
   useEffect(() => {
@@ -150,29 +150,17 @@ useEffect(() => {
     }),
   }
 
-
- 
   return (
     <div
       className={cn(
-        'bg-background text-foreground relative min-h-162.5 w-full overflow-hidden p-8 md:min-h-150 md:p-12',
+        'bg-background text-foreground relative min-h-162.5 w-full overflow-hidden',
         className
       )}
     >
       <div className="grid h-full grid-cols-1 gap-8 md:grid-cols-12">
         {/* === Left Column: Meta and Thumbnails === */}
         <div className="order-2 flex h-full flex-col justify-between md:order-1 md:col-span-3">
-          <div className="flex flex-row justify-between space-x-4 md:flex-col md:justify-start md:space-y-4 md:space-x-0">
-            {/* Pagination */}
-            <span className="text-muted-foreground font-mono text-sm">
-              {String(currentIndex + 1).padStart(2, '0')} /{' '}
-              {String(reviews.length).padStart(2, '0')}
-            </span>
-            {/* Vertical "Reviews" Text */}
-            <h2 className="hidden text-sm font-medium tracking-widest text-[#FD4F0C] uppercase [writing-mode:vertical-rl] md:block md:rotate-180">
-              Testimonials
-            </h2>
-          </div>
+          <div className="flex flex-row justify-between space-x-4 md:flex-col md:justify-start md:space-y-4 md:space-x-0"></div>
 
           {/* Thumbnail Navigation */}
           <div className="mt-8 flex space-x-2 md:mt-0">
@@ -200,16 +188,16 @@ useEffect(() => {
         {/* === Center Column: Main Image === */}
         <div
           className="relative order-1 h-full md:order-2 md:col-span-4"
-       onMouseEnter={() => {
-  if (isDialogOpen) return
-  setIsPaused(true)
-  stopAutoplay()
-}}
-onMouseLeave={() => {
-  if (isDialogOpen) return
-  setIsPaused(false)
-  startAutoplay()
-}}
+          onMouseEnter={() => {
+            if (isDialogOpen) return
+            setIsPaused(true)
+            stopAutoplay()
+          }}
+          onMouseLeave={() => {
+            if (isDialogOpen) return
+            setIsPaused(false)
+            startAutoplay()
+          }}
         >
           <AnimatePresence initial={false} custom={direction}>
             {activeReview && (
@@ -253,13 +241,14 @@ onMouseLeave={() => {
                 exit="exit"
                 transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
               >
-                <p className="line-clamp-1 text-sm font-medium text-[#FD4F0C]">
-                  {activeReview?.position ?? activeReview?.patent ?? ''}
-                </p>
                 <h3 className="mt-1 text-xl font-semibold">
                   {activeReview?.name}
                 </h3>
-                <blockquote className="mt-6 line-clamp-4 text-xl leading-snug font-medium md:text-3xl">
+                <p className="line-clamp-1 text-sm font-medium text-[#FD4F0C]">
+                  {activeReview?.position ?? activeReview?.patent ?? ''}
+                </p>
+
+                <blockquote className="text-md mt-6 line-clamp-4 leading-snug font-medium md:text-xl">
                   &quot;
                   {showFull || !activeReview?.text
                     ? activeReview?.text

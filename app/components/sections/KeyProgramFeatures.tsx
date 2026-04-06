@@ -1,156 +1,140 @@
 'use client'
 
+import { Header } from '../ui/Header'
 import Image from 'next/image'
-import { AnimatePresence, motion } from 'framer-motion'
-import { useState } from 'react'
 
-const leftFeatures = [
+interface FeatureItemProps {
+  title: string
+  description: string
+  color: string
+  textColor: string
+  descColor: string
+  ImagePath: string
+}
+
+const leftFeatures: FeatureItemProps[] = [
   {
     title: 'Patents',
     description:
       'Gain in-depth knowledge of how to create, draft, and file patents that safeguard innovative ideas.',
-    indent: false,
+    color: 'bg-[#C59AFF]',
+    textColor: 'text-[#23034E]',
+    descColor: 'text-[#453061]',
+    ImagePath: '/icons/feature-icon-1.svg',
   },
   {
     title: 'Global Exposure',
     description:
-      'Gain in-depth knowledge of how to create, draft, and file patents that safeguard innovative ideas.',
-    indent: true,
-  },
-  {
-    title: 'Innovative Thinking',
-    description:
-      'Gain in-depth knowledge of how to create, draft, and file patents that safeguard innovative ideas.',
-    indent: false,
-  },
-]
-
-const rightFeatures = [
-  {
-    title: 'Research',
-    description:
-      'Gain in-depth knowledge of how to create, draft, and file patents that safeguard innovative ideas.',
-    indent: false,
+      'Build a strong global network by engaging with peers, mentors, and experts across different regions.',
+    color: 'bg-[#A3D6F1]',
+    textColor: 'text-[#00273B]',
+    descColor: 'text-[#1C4358]',
+    ImagePath: '/icons/feature-icon-2.svg',
   },
   {
     title: 'Ivy League Readiness',
     description:
-      'Gain in-depth knowledge of how to create, draft, and file patents that safeguard innovative ideas.',
-    indent: true,
+      'Develop the academic rigor, leadership mindset, and personal discipline required to compete for admission to Ivy & Top Universities.',
+    color: 'bg-[#D8F1DC]',
+    textColor: 'text-[#00470B]',
+    descColor: 'text-[#154F1F]',
+    ImagePath: '/icons/feature-icon-3.svg',
+  },
+  {
+    title: 'Innovative Thinking',
+    description:
+      'Develop the academic rigor, leadership mindset, and personal discipline required to compete for admission to Ivy & Top Universities.',
+    color: 'bg-[#FF7039]',
+    textColor: 'text-[#4B1500]',
+    descColor: 'text-[#502514]',
+    ImagePath: '/icons/feature-icon-4.svg',
+  },
+  {
+    title: 'Research Skills',
+    description:
+      'Work directly on academic and industry-level research projects, developing critical thinking and analytical skills through practical experience.',
+    color: 'bg-[#FFC061]',
+    textColor: 'text-[#553300]',
+    descColor: 'text-[#523914]',
+    ImagePath: '/icons/feature-icon-5.svg',
   },
   {
     title: 'Brain Science',
     description:
-      'Gain in-depth knowledge of how to create, draft, and file patents that safeguard innovative ideas.',
-    indent: false,
+      'Unlock the mysteries of the human brain and its role in innovation to enhance your academic, research, and entrepreneurial journey.',
+    color: 'bg-[#8F92FF]',
+    textColor: 'text-[#02054D]',
+    descColor: 'text-[#1B1D58]',
+    ImagePath: '/icons/feature-icon-6.svg',
   },
 ]
 
-function FeatureCard({
+function FeatureItem({
   title,
   description,
-  index,
-}: {
-  title: string
-  description: string
-  index: number
-}) {
-  const [hovered, setHovered] = useState(false)
-
+  color,
+  textColor,
+  descColor,
+  ImagePath,
+}: FeatureItemProps) {
   return (
-    <motion.div
-      className="relative cursor-default rounded-xl border border-[#787878] bg-[#2B2B2B] p-4 backdrop-blur-sm"
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.5, delay: index * 0.1, ease: 'easeOut' }}
-      animate={{ y: hovered ? -10 : 0, scale: hovered ? 1.05 : 1 }}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
-      style={{ willChange: 'transform' }}
+    <div
+      key={title}
+      className={`relative flex aspect-square flex-col gap-2 rounded-xl px-4 pt-4 ${color}`}
     >
-      {/* Orange accent dot */}
-      <span className="absolute top-3 right-3 h-1.5 w-1.5 rounded-sm bg-[#fd4f0c]" />
-      <h3 className="mb-2 pr-4 text-sm font-semibold text-white">{title}</h3>
-      <p className="text-xs leading-relaxed text-white/80">{description}</p>
-      {/* <AnimatePresence>
-        {hovered && (
-          <motion.p
-            key="cta"
-            className="cursor-pointer overflow-hidden text-xs font-medium text-[#fd4f0c] hover:underline"
-            initial={{ opacity: 0, y: 6, height: 0, marginTop: 0 }}
-            animate={{ opacity: 1, y: 0, height: 'auto', marginTop: 8 }}
-            exit={{ opacity: 0, y: 6, height: 0, marginTop: 0 }}
-            transition={{ duration: 0.22, ease: 'easeOut' }}
-          >
-            Learn More
-          </motion.p>
-        )}
-      </AnimatePresence> */}
-    </motion.div>
+      <h3
+        className={`z-12 w-full text-center text-lg font-semibold ${textColor}`}
+      >
+        {title}
+      </h3>
+      <p className={`z-12 w-full text-center text-sm font-medium ${descColor}`}>
+        {description}
+      </p>
+      <Image
+        width={256}
+        height={256}
+        src={ImagePath}
+        alt={title}
+        className="z-12 mt-auto w-full!"
+      />
+      <Image
+        width={256}
+        height={256}
+        src="/images/card-overlay.png"
+        alt={title}
+        className="pointer-events-none absolute top-0 left-0 z-5 h-full w-full rounded-xl object-cover opacity-20 bg-blend-color-burn"
+      />
+    </div>
   )
 }
 
 export default function KeyProgramFeatures() {
   return (
-    <section className="h-screen w-full overflow-hidden bg-[#0E0A18] py-16">
+    <section className="flex h-max w-full flex-col items-center gap-8 overflow-hidden bg-white py-12">
       {/* Header */}
-      <div className="relative z-[30] mb-12 flex flex-col items-center justify-center gap-3 px-6 text-center">
-        <h2 className="font-inter text-3xl font-semibold tracking-tight text-white md:text-[2.5rem]">
+      <div className="flex w-max flex-col items-center justify-center gap-3 self-center-safe text-center">
+        <Header text="Our Institute" />
+        <h2 className="font-inter text-2xl font-semibold tracking-tight text-[#1e1e1e]">
           Key Program Features
         </h2>
-        <p className="text-base leading-relaxed text-white/50">
-          Founded by an IIM Calcutta Alumnus and a globally
-          <br />
-          recognized inventor and technologist.
+        <p className="text-sm font-medium text-[#1e1e1e]/80">
+          Founded by an IIM Calcutta Alumnus and a globally <br /> recognized
+          inventor and technologist. goals.
         </p>
       </div>
 
-      {/* 3-column layout: cards | SVG (absolute behind) | cards */}
-      <div className="relative z-[11] mx-auto flex max-w-7xl items-center gap-100 px-6 md:px-12 lg:px-16">
-        {/* Left cards */}
-        <div className="z-10 flex flex-1 flex-col justify-center gap-5">
-          {leftFeatures.map((f, i) => (
-            <div key={f.title} style={{ paddingLeft: i === 1 ? '18%' : '0' }}>
-              <FeatureCard
-                title={f.title}
-                description={f.description}
-                index={i}
-              />
-            </div>
-          ))}
-        </div>
-
-        {/* Center SVG — absolute, centered behind the cards */}
-        <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 12, ease: 'linear', repeat: Infinity }}
-            style={{ willChange: 'transform' }}
-          >
-            <Image
-              src="/icons/rotating-ellipse.svg"
-              alt="DMIF feature hub"
-              width={700}
-              height={500}
-              className="z-10 select-none"
-              priority
-            />
-          </motion.div>
-        </div>
-
-        {/* Right cards */}
-        <div className="z-10 flex flex-1 flex-col justify-center gap-5">
-          {rightFeatures.map((f, i) => (
-            <div key={f.title} style={{ paddingRight: i === 1 ? '18%' : '0' }}>
-              <FeatureCard
-                title={f.title}
-                description={f.description}
-                index={i + 3}
-              />
-            </div>
-          ))}
-        </div>
+      <div className="grid max-w-6xl grid-cols-3 gap-4 px-4">
+        {leftFeatures.map((feature, index) => (
+          <FeatureItem
+            key={index}
+            title={feature.title}
+            description={feature.description}
+            color={feature.color}
+            textColor={feature.textColor}
+            descColor={feature.descColor}
+            ImagePath={feature.ImagePath}
+          />
+        ))}
       </div>
     </section>
   )

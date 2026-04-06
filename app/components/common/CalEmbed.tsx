@@ -9,7 +9,7 @@ export default function BookingSection() {
       const cal = await getCalApi()
 
       cal('ui', {
-        theme: 'dark', // Switch to "light" based on your site's design
+        theme: 'light', // Switch to "light" based on your site's design
         styles: {
           branding: { brandColor: '#000000' }, // Your primary brand color
         },

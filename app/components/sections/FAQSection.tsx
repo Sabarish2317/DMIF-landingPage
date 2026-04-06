@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
+import { Header } from '../ui/Header'
 
 const faqs = [
   {
@@ -41,32 +42,21 @@ export default function FAQSection() {
 
   return (
     <section className="relative w-full overflow-hidden">
-      {/* Background Split */}
-      <div className="absolute inset-0 flex flex-col">
-        <div className="h-1/2 bg-[#0E0A18]"></div>
-
-        {/* Orange with Dot Pattern */}
-        <div
-          className="h-1/2 bg-[#FD4F0C]"
-          style={{
-            backgroundImage:
-              'radial-gradient(rgba(255,255,255,0.25) 1px, transparent 1px)',
-            backgroundSize: '10px 10px',
-          }}
-        ></div>
-      </div>
-
       {/* Content */}
-      <div className="relative px-4 py-20">
+      <div className="relative flex flex-col items-center justify-center gap-12 px-4 py-20 sm:px-8 md:px-16 lg:px-24">
         {/* Heading */}
-        <div className="mx-auto mb-12 max-w-3xl text-center">
-          <h2 className="text-3xl font-bold text-white md:text-4xl">
-            Question and Answers
+        <div className="flex w-max flex-col items-center justify-center gap-3 self-center-safe text-center">
+          <Header text="Events" />
+          <h2 className="font-inter text-2xl font-semibold tracking-tight text-[#1e1e1e]">
+            FaQs
           </h2>
+          <p className="text-sm font-medium text-[#1e1e1e]/80">
+            Have any questions? We&apos;ve got you covered.
+          </p>
         </div>
 
         {/* FAQ Card */}
-        <div className="mx-auto max-w-3xl overflow-hidden rounded-xl bg-white shadow-2xl">
+        <div className="mx-auto w-full max-w-3xl overflow-hidden rounded-md border border-[#565452]/20 bg-white">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index
 
