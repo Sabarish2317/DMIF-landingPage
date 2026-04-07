@@ -40,7 +40,11 @@ export default function Brain() {
     animate: { opacity: 1 },
   }
 
-  const transitionConfig = { type: 'spring', stiffness: 100, damping: 20 }
+  const transitionConfig = {
+    type: 'spring',
+    stiffness: 100,
+    damping: 20,
+  } as const
 
   return (
     <div className="relative z-0 flex h-max w-full flex-col items-center justify-center gap-10 px-4 py-6 pt-12 sm:px-8 sm:py-8 md:h-screen md:max-h-screen md:px-24">
