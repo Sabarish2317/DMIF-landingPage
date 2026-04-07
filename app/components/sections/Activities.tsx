@@ -64,7 +64,7 @@ const Activities = () => {
   }, [selectedEvent, isPaused, selectedImages.length])
 
   return (
-    <section className="flex h-screen items-center justify-center bg-white px-4 py-6 pt-12 sm:px-8 sm:py-8 md:px-16 lg:px-24">
+    <section className="flex min-h-screen items-center justify-center bg-white px-4 py-6 sm:px-8 sm:py-8 md:px-16 md:pt-12 lg:px-24">
       <div className="max-w-8xl mx-auto flex w-full flex-col items-center gap-8">
         {/* Header */}
         <div className="flex w-max flex-col items-center justify-center gap-3 self-center-safe text-center">

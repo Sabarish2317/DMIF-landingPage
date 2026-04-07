@@ -8,14 +8,14 @@ export default function CTASection() {
     <section className="flex h-max w-full flex-col items-center justify-center px-4 pt-16 text-center md:pt-20">
       <div className="mx-auto flex flex-col items-center justify-center gap-3 self-center-safe text-center">
         {/* Header */}
-        <div className="flex w-max flex-col items-center justify-center gap-3 self-center-safe text-center">
+        <div className="flex w-full flex-col items-center justify-center gap-3 self-center-safe text-center">
           <Header text="Join Us" />
           <h2 className="font-inter text-2xl font-semibold tracking-tight text-[#1e1e1e]">
             Get Started with DMIF
           </h2>
           <p className="text-sm font-medium text-[#1e1e1e]/80">
             Join now and enjoy the benefits of unlimited learning experience and{' '}
-            <br />
+            <br className="hidden md:flex" />
             lorem ipsum from DMIF, click now to get started
           </p>
         </div>
