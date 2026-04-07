@@ -3,8 +3,12 @@
 import React from 'react'
 import Button from '@/app/components/Button'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
+import { useScreenSize } from '@/app/hooks/useScreenSize'
 
 export default function Brain() {
+  const { screenSize } = useScreenSize()
+
   const handleScrollToCTA = () => {
     const ctaSection = document.getElementById('contact')
     if (ctaSection) {
@@ -12,47 +16,98 @@ export default function Brain() {
     }
   }
 
+  const heroImageSrc =
+    screenSize === 'mobile' ? '/hero-section-sm.svg' : '/hero-section.svg'
+
+  // Animation variants
+  const headingVariants = {
+    initial: { opacity: 0, scale: 0.9 },
+    animate: { opacity: 1, scale: 1 },
+  }
+
+  const bottomToTopVariants = {
+    initial: { opacity: 0, y: 50 },
+    animate: { opacity: 1, y: 0 },
+  }
+
+  const topToBottomVariants = {
+    initial: { opacity: 0, y: -50 },
+    animate: { opacity: 1, y: 0 },
+  }
+
+  const fadeVariants = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+  }
+
+  const transitionConfig = { type: 'spring', stiffness: 100, damping: 20 }
+
   return (
-    <div className="relative z-0 flex h-screen max-h-screen w-full flex-col items-center justify-center gap-10 px-4 py-6 pt-12 sm:px-8 sm:py-8 md:px-16 lg:px-24">
+    <div className="relative z-0 flex h-max w-full flex-col items-center justify-center gap-10 px-4 py-6 pt-12 sm:px-8 sm:py-8 md:h-screen md:max-h-screen md:px-24">
       {/* Hero content */}
-      <div className="-mt-16 flex w-full flex-col items-center justify-between gap-8 md:flex-row md:gap-0">
+      <div className="-mt-0 mt-0 flex w-full flex-col items-center justify-between gap-8 md:-mt-16 md:flex-row md:gap-0">
         {/* Left content */}
         <section className="z-15 flex w-full flex-col items-start justify-between gap-4 sm:gap-6 md:max-w-xl">
           {/* Announcement */}
-          <div className="flex w-full max-w-sm cursor-pointer flex-row items-center gap-4 overflow-hidden rounded-md bg-white pr-3 sm:max-w-95">
+          <motion.div
+            initial={bottomToTopVariants.initial}
+            animate={bottomToTopVariants.animate}
+            transition={{ ...transitionConfig, delay: 0.2 }}
+            className="flex w-max max-w-sm cursor-pointer flex-row items-center gap-4 overflow-hidden rounded-md bg-white pr-4 sm:max-w-95 md:w-full"
+          >
             <span className="z-15 shrink-0 rounded-md bg-[#2b2b2b] px-3 py-2.5 text-xs font-medium tracking-wide text-white ring ring-[#2b2b2b] sm:text-sm">
               Announcement
             </span>
 
-            <div className="relative z-12 w-full min-w-max overflow-hidden text-sm font-medium tracking-wide whitespace-nowrap text-[#1e1e1e] sm:text-base">
+            <div className="relative z-12 w-max min-w-max overflow-hidden text-sm font-medium tracking-wide whitespace-nowrap text-[#1e1e1e] sm:text-base md:w-full">
               We are in IIT Madras
             </div>
-          </div>
+          </motion.div>
           {/* Heading */}
-          <h1 className="font-inter text-2xl leading-[1.15] font-medium tracking-tight text-[#1e1e1e] sm:text-4xl md:text-5xl">
+          <motion.h1
+            initial={headingVariants.initial}
+            animate={headingVariants.animate}
+            transition={{ ...transitionConfig, delay: 0 }}
+            className="font-inter text-4xl leading-[1.15] font-medium tracking-tight text-[#1e1e1e] md:text-4xl lg:text-5xl"
+          >
             Dr. Madhan
             <br />
             Institute of Future
-          </h1>
+          </motion.h1>
 
           {/* Subheading */}
-          <p className="md:text-md w-max text-base leading-[1.2] font-medium tracking-wide text-[#1e1e1e]/80 sm:text-lg">
+          <motion.p
+            initial={topToBottomVariants.initial}
+            animate={topToBottomVariants.animate}
+            transition={{ ...transitionConfig, delay: 0.4 }}
+            className="md:text-md w-max text-base leading-[1.2] font-medium tracking-wide text-[#1e1e1e]/80 sm:text-lg"
+          >
             Founded by an <span className="font-bold">IIM Calcutta</span>{' '}
             Alumnus and a globally
             <br />
             recognized inventor and technologist.
-          </p>
+          </motion.p>
 
           {/* Buttons */}
-          <div className="flex w-full flex-row items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center">
+          <motion.div
+            initial={topToBottomVariants.initial}
+            animate={topToBottomVariants.animate}
+            transition={{ ...transitionConfig, delay: 0.5 }}
+            className="flex w-full flex-row items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center"
+          >
             <Button variant="outline" onClick={handleScrollToCTA}>
               Book a Meet
             </Button>
             <Button variant="fill" className="bg-[#fd4f0c]! text-white!">
               Get Started →
             </Button>
-          </div>
-          <div className="flex flex-row items-center gap-2">
+          </motion.div>
+          <motion.div
+            initial={topToBottomVariants.initial}
+            animate={topToBottomVariants.animate}
+            transition={{ ...transitionConfig, delay: 0.6 }}
+            className="mt-4 flex flex-row items-center gap-2 md:mt-0"
+          >
             <Image
               width={256}
               height={256}
@@ -70,24 +125,31 @@ export default function Brain() {
               />
               Trusted by 1000+ Professionals & Students
             </div>
-          </div>
+          </motion.div>
         </section>
         {/*  right content */}
 
-        <Image
-          width={2000}
-          height={2000}
-          src="/hero-section.svg"
-          alt="Hero Section"
-          className="object-center opacity-0"
-        />
-        <Image
-          width={1200}
-          height={1200}
-          src="/hero-section.svg"
-          alt="Hero Section"
-          className="absolute right-0 object-center pr-12"
-        />
+        <motion.div
+          initial={fadeVariants.initial}
+          animate={fadeVariants.animate}
+          className="relative h-full w-full"
+          transition={{ duration: 0.6, delay: 0.7 }}
+        >
+          <Image
+            width={2000}
+            height={2000}
+            src={heroImageSrc}
+            alt="Hero Section"
+            className="object-left lg:opacity-0"
+          />
+          <Image
+            width={2000}
+            height={2000}
+            src={heroImageSrc}
+            alt="Hero Section"
+            className="absolute top-0 right-0 h-full origin-right scale-160 opacity-0 lg:opacity-100"
+          />
+        </motion.div>
       </div>
       {/* Bottom section - Stats cards */}
       <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 md:gap-6">
@@ -110,10 +172,10 @@ export default function Brain() {
         ].map((stat, i) => (
           <div
             key={i}
-            className="flex flex-col gap-2 rounded-lg border border-[#565452]/20 bg-white p-3 sm:gap-3 sm:p-4"
+            className="flex flex-col gap-2 gap-4 rounded-lg border border-[#565452]/20 bg-white p-3 p-4"
           >
             <div className="flex items-start justify-between">
-              <span className="md:text-md font-inter line-clamp-2 text-xs font-medium text-[#2b2b2b] sm:text-sm">
+              <span className="text-md font-inter line-clamp-2 font-medium text-[#2b2b2b]">
                 {stat.title}
               </span>
               <span className="ml-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#fd4f0c]" />
@@ -121,7 +183,7 @@ export default function Brain() {
             <span className="text-base font-medium text-[#fa773a] sm:text-lg md:text-xl">
               {stat.value}
             </span>
-            <span className="md:text-md text-xs leading-tight font-medium text-[#2b2b2b] sm:text-sm">
+            <span className="md:text-md leading-tight font-medium text-[#2b2b2b]">
               {stat.description}
             </span>
           </div>

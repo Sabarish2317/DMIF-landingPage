@@ -9,7 +9,7 @@ export default function Testimonial() {
   const { items: testimonials } = useTestimonials()
   console.log('Fetched testimonials:', testimonials)
   return (
-    <div className="flex w-full flex-col gap-8 bg-white px-4 py-6 pt-12 sm:px-8 sm:py-8 md:px-16 lg:px-24">
+    <div className="flex w-full flex-col gap-8 bg-white px-4 py-6 pt-24 sm:px-8 sm:py-8 md:px-16 lg:px-24">
       {/* Header */}
       <div className="flex w-max flex-col items-center justify-center gap-3 self-center-safe text-center">
         <Header text="Testimonials" />

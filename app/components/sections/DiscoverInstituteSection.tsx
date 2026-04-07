@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import Image from 'next/image'
 import Button from '../Button'
 import { Header } from '../ui/Header'
@@ -43,18 +42,18 @@ const instituteSectionData = {
 
 export default function DiscoverInstituteSection() {
   return (
-    <section className="flex w-full flex-col gap-8 overflow-hidden pt-2 pb-8">
+    <section className="flex w-full flex-col gap-8 overflow-hidden px-5 pt-2 pb-8 md:px-12">
       {/* ================= ORANGE HEADER ================= */}
-      <div className="relative flex flex-col items-center gap-6 text-center text-white">
-        <div className="flex w-max flex-col items-center justify-center gap-3 self-center-safe text-center">
+      <div className="relative flex w-full flex-col items-center gap-6 text-center text-white">
+        <div className="flex w-full flex-col items-center justify-center gap-3 self-center-safe text-center">
           <Header text="Our Institute" />
           <h2 className="font-inter text-2xl font-semibold tracking-tight text-[#1e1e1e]">
             {instituteSectionData.title}
           </h2>
-          <p className="text-sm font-medium text-[#1e1e1e]/80">
+          <p className="text-sm font-medium text-[#1e1e1e]/80 md:text-sm">
             Get to know us in 3 Minutes! Watch our introduction video to explore
-            who we are, what we do, and how <br /> we can help you achieve your
-            goals.
+            who we are, what we do, and how <br className="hidden md:flex" /> we
+            can help you achieve your goals.
           </p>
           <Button
             variant="fill"
@@ -66,7 +65,7 @@ export default function DiscoverInstituteSection() {
 
         {/* ================= ABSOLUTE VIDEO ================= */}
 
-        <div className="w-1/2 overflow-hidden rounded-xl border-4 border-white bg-black shadow-2xl">
+        <div className="w-full overflow-hidden rounded-xl border-4 border-white bg-black shadow-2xl lg:w-1/2">
           <div className="aspect-video">
             <video className="h-full" controls playsInline preload="metadata">
               <source src={instituteSectionData.videoUrl} type="video/mp4" />
@@ -77,7 +76,7 @@ export default function DiscoverInstituteSection() {
       </div>
 
       {/* Content */}
-      <div className="relative mx-auto grid w-full max-w-6xl grid-cols-1 gap-6 px-4 md:grid-cols-3">
+      <div className="relative mx-auto grid w-full max-w-6xl grid-cols-1 gap-6 md:grid-cols-3 md:px-4">
         {instituteSectionData.cards.map((card, index) => (
           <div
             key={index}

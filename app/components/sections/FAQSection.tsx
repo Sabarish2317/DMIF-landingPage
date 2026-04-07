@@ -46,7 +46,7 @@ export default function FAQSection() {
       <div className="relative flex flex-col items-center justify-center gap-12 px-4 py-20 sm:px-8 md:px-16 lg:px-24">
         {/* Heading */}
         <div className="flex w-max flex-col items-center justify-center gap-3 self-center-safe text-center">
-          <Header text="Events" />
+          <Header text="Questions" />
           <h2 className="font-inter text-2xl font-semibold tracking-tight text-[#1e1e1e]">
             FaQs
           </h2>
