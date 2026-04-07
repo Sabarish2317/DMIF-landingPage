@@ -15,7 +15,7 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    'px-6 py-3 w-max rounded-md font-medium text-md transition-all duration-200 ease-in-out cursor-pointer '
+    'px-6 py-3 w-max rounded-md font-medium text-sm md:text-md transition-all duration-200 ease-in-out cursor-pointer '
 
   const variants = {
     fill: 'bg-[#FD4F0C] text-white ',

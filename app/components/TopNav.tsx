@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { ChevronDown, Menu, X } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Button from './Button'
+import { useScreenSize } from '@/app/hooks/useScreenSize'
 
 export default function TopNav() {
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -13,6 +14,7 @@ export default function TopNav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMobileProgramsOpen, setIsMobileProgramsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const { padding } = useScreenSize()
 
   const openPrograms = () => {
     if (closeTimerRef.current) {
@@ -74,13 +76,27 @@ export default function TopNav() {
 
   return (
     <motion.nav
-      className={`sticky top-2 right-0 left-0 z-50 w-full items-center justify-center`}
-      initial={false}
-      animate={{
-        paddingLeft: isScrolled ? 208 : 96,
-        paddingRight: isScrolled ? 208 : 96,
+      className={`sticky top-2 right-0 left-0 z-50 w-full items-center justify-center will-change-transform`}
+      initial={{
+        y: -100,
+        opacity: 0,
       }}
-      transition={{ duration: 0.1, ease: 'easeInOut' }}
+      animate={{
+        y: 0,
+        opacity: 1,
+        paddingLeft: padding,
+        paddingRight: padding,
+      }}
+      transition={{
+        y: { type: 'spring', stiffness: 100, damping: 20, mass: 0.8 },
+        opacity: { duration: 0.3 },
+        paddingLeft: { duration: 0.1, ease: 'easeInOut' },
+        paddingRight: { duration: 0.1, ease: 'easeInOut' },
+      }}
+      style={{
+        backfaceVisibility: 'hidden',
+        perspective: 1000,
+      }}
     >
       <motion.div
         className={`relative self-center border border-[#565452]/20 px-3 py-2.5 sm:px-4 lg:px-4 ${
@@ -100,8 +116,8 @@ export default function TopNav() {
             <Image
               src="/icons/logo-full.svg"
               alt="DMIF Logo"
-              width={48}
-              height={48}
+              width={80}
+              height={112}
               className="w-20 sm:w-28"
             />
           </div>

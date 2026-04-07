@@ -1,8 +1,8 @@
-import { Suspense } from 'react'
+'use client'
+
+import { useEffect, useState } from 'react'
 import TopNav from '@/app/components/TopNav'
 import HeroSection from './sections/HeroSection'
-import AboutDMIF from './sections/AboutDMIF'
-import HeroLoader from './HeroLoader'
 import DiscoverInstituteSection from './sections/DiscoverInstituteSection'
 import Testimonial from './sections/Testimonial'
 import FounderSection from './sections/FounderSection'
@@ -11,8 +11,23 @@ import Footer from './Layout/Footer'
 import FAQSection from './sections/FAQSection'
 import Activities from './sections/Activities'
 import KeyProgramFeatures from './sections/KeyProgramFeatures'
+import PageLoader from './PageLoader'
 
 export default function LandingPage() {
+  const [isReady, setIsReady] = useState(false)
+
+  useEffect(() => {
+    // Give the page time to render and hydrate properly
+    const timer = setTimeout(() => {
+      setIsReady(true)
+    }, 1000)
+
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (!isReady) {
+    return <PageLoader />
+  }
   return (
     <main
       id="home"

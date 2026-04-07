@@ -37,16 +37,6 @@ export const TestimonialSlider = ({
   const isZoomOpen = zoomedImage !== null
   const activeReview = reviews.length > 0 ? reviews[currentIndex] : undefined
 
-  useEffect(() => {
-    if (isZoomOpen) {
-      setIsPaused(true)
-      stopAutoplay()
-    } else {
-      setIsPaused(false)
-      startAutoplay()
-    }
-  }, [isZoomOpen])
-
   const handleNext = () => {
     if (reviews.length === 0 || isDialogOpen || isZoomOpen) return
     setDirection('right')
@@ -71,7 +61,7 @@ export const TestimonialSlider = ({
 
   const thumbnailReviews =
     reviews.length > 0
-      ? Array.from({ length: Math.min(3, reviews.length - 1) }, (_, i) => {
+      ? Array.from({ length: reviews.length - 1 }, (_, i) => {
           const index =
             (currentIndex - (i + 1) + reviews.length) % reviews.length
           return reviews[index]
@@ -98,6 +88,16 @@ export const TestimonialSlider = ({
     stopAutoplay()
     startAutoplay()
   }
+
+  useEffect(() => {
+    if (isZoomOpen) {
+      setIsPaused(true)
+      stopAutoplay()
+    } else {
+      setIsPaused(false)
+      startAutoplay()
+    }
+  }, [isZoomOpen])
 
   useEffect(() => {
     if (isDialogOpen) {
@@ -163,7 +163,7 @@ export const TestimonialSlider = ({
           <div className="flex flex-row justify-between space-x-4 md:flex-col md:justify-start md:space-y-4 md:space-x-0"></div>
 
           {/* Thumbnail Navigation */}
-          <div className="mt-8 flex space-x-2 md:mt-0">
+          <div className="scrollbar-hide mt-8 flex space-x-2 overflow-x-auto md:mt-0">
             {thumbnailReviews.map((review) => {
               // Find the original index to navigate to
               const originalIndex = reviews.findIndex((r) => r.id === review.id)
@@ -171,13 +171,14 @@ export const TestimonialSlider = ({
                 <button
                   key={review.id}
                   onClick={() => handleThumbnailClick(originalIndex)}
-                  className="focus:ring-primary focus:ring-offset-background h-20 w-16 overflow-hidden rounded-md opacity-70 transition-opacity duration-300 hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-none md:h-24 md:w-20"
+                  className="focus:ring-primary focus:ring-offset-background h-20 w-20 min-w-20 shrink-0 overflow-hidden rounded-md opacity-70 transition-opacity duration-300 hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-none md:h-24 md:w-24 md:min-w-24"
                   aria-label={`View review from ${review.name}`}
+                  style={{ aspectRatio: '1/1' }}
                 >
                   <img
                     src={review.image || ''}
                     alt={review.name}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full origin-top object-cover object-top"
                   />
                 </button>
               )
@@ -187,7 +188,7 @@ export const TestimonialSlider = ({
 
         {/* === Center Column: Main Image === */}
         <div
-          className="relative order-1 h-full md:order-2 md:col-span-4"
+          className="relative order-1 h-full min-h-64 md:order-2 md:col-span-4"
           onMouseEnter={() => {
             if (isDialogOpen) return
             setIsPaused(true)
@@ -211,7 +212,7 @@ export const TestimonialSlider = ({
                 animate="center"
                 exit="exit"
                 transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-                className="absolute inset-0 h-full w-full rounded-lg object-cover"
+                className="absolute inset-0 h-full w-full origin-top rounded-lg object-cover object-top"
               />
             )}
           </AnimatePresence>
@@ -272,13 +273,11 @@ export const TestimonialSlider = ({
                 )}
 
                 {/* Outcomes Section - Always rendered for consistent height */}
-                <div
-                  className={`mt-6 max-h-32 overflow-hidden ${activeReview?.outcomes && activeReview.outcomes.length > 0 ? 'opacity-100' : 'opacity-0'}`}
-                >
+                <div className="mt-6 max-h-32 overflow-hidden opacity-100">
                   <p className="mb-2 font-medium">Outcomes</p>
 
                   <div className="overflow-x-auto">
-                    <div className="flex gap-4 pb-2">
+                    <div className="flex scale-75 gap-4 pb-2 md:scale-100">
                       {(activeReview?.outcomes &&
                       activeReview.outcomes.length > 0
                         ? activeReview.outcomes

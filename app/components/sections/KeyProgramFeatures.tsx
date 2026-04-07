@@ -110,7 +110,7 @@ function FeatureItem({
 
 export default function KeyProgramFeatures() {
   return (
-    <section className="flex h-max w-full flex-col items-center gap-8 overflow-hidden bg-white py-12">
+    <section className="flex h-max w-full flex-col items-center gap-8 overflow-hidden bg-white py-12 pb-16 md:pb-12">
       {/* Header */}
       <div className="flex w-max flex-col items-center justify-center gap-3 self-center-safe text-center">
         <Header text="Our Institute" />
@@ -123,7 +123,7 @@ export default function KeyProgramFeatures() {
         </p>
       </div>
 
-      <div className="grid max-w-6xl grid-cols-3 gap-4 px-4">
+      <div className="grid max-w-6xl grid-cols-1 gap-4 px-4 md:grid-cols-3">
         {leftFeatures.map((feature, index) => (
           <FeatureItem
             key={index}

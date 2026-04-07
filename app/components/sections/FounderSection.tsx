@@ -1,7 +1,47 @@
 'use client'
 
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { Linkedin, Instagram, Youtube, Mail, Facebook } from 'lucide-react'
+import { useInView } from 'framer-motion'
+
+// Counter Component
+function AnimatedCounter() {
+  const [count, setCount] = useState(0)
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true })
+
+  useEffect(() => {
+    if (!isInView) return
+
+    const finalCount = 120
+    const duration = 2 // seconds
+    const steps = 60
+    const increment = finalCount / steps
+    let currentStep = 0
+
+    const interval = setInterval(
+      () => {
+        currentStep++
+        setCount(Math.min(Math.ceil(currentStep * increment), finalCount))
+
+        if (currentStep >= steps) {
+          clearInterval(interval)
+        }
+      },
+      (duration * 1000) / steps
+    )
+
+    return () => clearInterval(interval)
+  }, [isInView])
+
+  return (
+    <div ref={ref}>
+      <h2 className="text-5xl leading-none font-bold md:text-6xl">{count}+</h2>
+      <p className="mt-2 text-sm">Patent inventor</p>
+    </div>
+  )
+}
 
 export default function FounderSection() {
   return (
@@ -92,10 +132,7 @@ export default function FounderSection() {
           </div>
           {/* Patent Count */}
           <div className="mt-10 md:mt-0">
-            <h2 className="text-5xl leading-none font-bold md:text-6xl">
-              120+
-            </h2>
-            <p className="mt-2 text-sm">Patent inventor</p>
+            <AnimatedCounter />
           </div>
         </div>
       </div>

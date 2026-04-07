@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import './globals.css'
 import { ReactScan } from '@/app/components/ReactScan'
 import { inter, satoshi } from '@/lib/fonts'
+import './global.css'
 
 export const metadata: Metadata = {
   title: 'Dr. Madhan Institute of Future',
@@ -14,7 +14,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.className} ${satoshi.className}`}>
+    <html
+      lang="en"
+      className={`${inter.className} ${satoshi.className}`}
+      style={{ colorScheme: 'light' }}
+    >
       <head>
         <meta charSet="UTF-8" />
         <meta
