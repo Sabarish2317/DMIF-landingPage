@@ -151,7 +151,7 @@ export default function Brain() {
             height={2000}
             src={heroImageSrc}
             alt="Hero Section"
-            className="absolute top-0 right-0 h-full origin-right scale-160 opacity-0 lg:opacity-100"
+            className="absolute top-0 right-0 h-full origin-right scale-[1.30] opacity-0 lg:opacity-100"
           />
         </motion.div>
       </div>
