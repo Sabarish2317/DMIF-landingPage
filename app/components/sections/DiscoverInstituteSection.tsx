@@ -82,13 +82,15 @@ export default function DiscoverInstituteSection() {
             key={index}
             className="rounded-sm border border-[#565452]/20 bg-white p-6 text-white transition-transform hover:scale-[1.02]"
           >
-            <Image
-              src={card.icon}
-              alt={card.title}
-              width={28}
-              height={28}
-              className="mb-4"
-            />
+            <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#fd4f0c]">
+              <Image
+                src={card.icon}
+                alt={card.title}
+                width={28}
+                height={28}
+                className="h-5 w-5"
+              />
+            </div>
 
             <h3 className="mb-3 text-base font-semibold text-[#fd4f0c] md:text-lg">
               {card.title}
