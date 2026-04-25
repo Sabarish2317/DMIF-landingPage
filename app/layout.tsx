@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { ReactScan } from '@/app/components/ReactScan'
-import { inter, satoshi } from '@/lib/fonts'
+import { inter, playfair, satoshi } from '@/lib/fonts'
 import './global.css'
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.className} ${satoshi.className}`}
+      className={`${inter.className} ${satoshi.className} ${playfair.variable}`}
       style={{ colorScheme: 'light' }}
     >
       <head>

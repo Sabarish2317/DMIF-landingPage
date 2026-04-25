@@ -10,6 +10,7 @@ const config: Config = {
       fontFamily: {
         inter: ['var(--font-inter)', 'sans-serif'],
         satoshi: ['var(--font-satoshi)', 'sans-serif'],
+        playfair: ['var(--font-playfair)', 'serif'],
       },
     },
   },

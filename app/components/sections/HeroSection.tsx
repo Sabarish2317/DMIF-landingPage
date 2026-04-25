@@ -69,6 +69,7 @@ export default function Brain() {
           </motion.div>
           {/* Heading */}
           <motion.h1
+            style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
             initial={headingVariants.initial}
             animate={headingVariants.animate}
             transition={{ ...transitionConfig, delay: 0 }}
@@ -102,7 +103,11 @@ export default function Brain() {
             <Button variant="outline" onClick={handleScrollToCTA}>
               Book a Meet
             </Button>
-            <Button variant="fill" onClick={handleScrollToCTA} className="bg-[#fd4f0c]! text-white!">
+            <Button
+              variant="fill"
+              onClick={handleScrollToCTA}
+              className="bg-[#fd4f0c]! text-white!"
+            >
               Get Started →
             </Button>
           </motion.div>
@@ -151,7 +156,7 @@ export default function Brain() {
             height={2000}
             src={heroImageSrc}
             alt="Hero Section"
-            className="absolute top-0 right-0 h-full origin-right scale-[1.30] opacity-0 lg:opacity-100"
+            className="absolute top-0 right-0 h-full origin-right scale-[1] opacity-0 lg:opacity-100"
           />
         </motion.div>
       </div>

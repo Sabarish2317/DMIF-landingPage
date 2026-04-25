@@ -12,6 +12,7 @@ import FAQSection from './sections/FAQSection'
 import Activities from './sections/Activities'
 import KeyProgramFeatures from './sections/KeyProgramFeatures'
 import PageLoader from './PageLoader'
+import CreativeCapabilitiesSection from './sections/CreativeCapabilitiesSection'
 
 export default function LandingPage() {
   const [isReady, setIsReady] = useState(false)
@@ -35,9 +36,11 @@ export default function LandingPage() {
     >
       <TopNav />
       <HeroSection />
+      <CreativeCapabilitiesSection />
+      <KeyProgramFeatures />
       {/* <AboutDMIF /> */}
       <DiscoverInstituteSection />
-      <KeyProgramFeatures />
+
       <Activities />
       <div id="testimonials">
         <Testimonial />

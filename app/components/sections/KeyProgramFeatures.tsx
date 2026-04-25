@@ -114,7 +114,10 @@ export default function KeyProgramFeatures() {
       {/* Header */}
       <div className="flex w-max flex-col items-center justify-center gap-3 self-center-safe text-center">
         <Header text="Our Unique Edge" />
-        <h2 className="font-inter text-2xl font-semibold tracking-tight text-[#1e1e1e]">
+        <h2
+          style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
+          className="font-inter font text-2xl font-medium text-[#1e1e1e]"
+        >
           Key Program Features
         </h2>
         <p className="text-sm font-medium text-[#1e1e1e]/80">
