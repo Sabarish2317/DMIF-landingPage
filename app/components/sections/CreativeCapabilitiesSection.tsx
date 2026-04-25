@@ -402,6 +402,7 @@ export default function CreativeCapabilitiesSection() {
   return (
     <section
       ref={sectionRef}
+      className="creative-capabilities-section"
       style={{
         position: 'relative',
         overflow: 'hidden',
@@ -446,6 +447,7 @@ export default function CreativeCapabilitiesSection() {
 
       {/* 3-col grid */}
       <div
+        className="content-grid"
         style={{
           position: 'relative',
           display: 'grid',
@@ -459,6 +461,7 @@ export default function CreativeCapabilitiesSection() {
         {/* LEFT */}
         <div
           ref={leftIllRef}
+          className="left-illustration"
           style={{
             height: '340px',
             display: 'flex',
@@ -485,7 +488,7 @@ export default function CreativeCapabilitiesSection() {
         >
           {/* Badge */}
           <div
-            className="bg-white"
+            className="bg-white badge-container"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -527,6 +530,7 @@ export default function CreativeCapabilitiesSection() {
             {/* Line 1 — "We make you" */}
             <div style={{ overflow: 'hidden', lineHeight: 0 }}>
               <h2
+                className="headline-text"
                 style={{
                   fontFamily: "'Cormorant Garamond', Georgia, serif",
                   fontSize: 'clamp(34px, 4.8vw, 62px)',
@@ -548,11 +552,12 @@ export default function CreativeCapabilitiesSection() {
 
             {/* "Top 1%" — parallax, no gap above/below */}
             <div
-              className="inline-flex h-fit w-fit items-center justify-center"
+              className="inline-flex h-fit w-fit items-center justify-center top-one-container"
               style={{ overflow: 'visible', margin: '4px 0 6px' }}
             >
               <motion.span
                 ref={top1Ref}
+                className="top-one-text"
                 style={{
                   display: 'flex',
                   fontFamily: "'Cormorant Garamond', Georgia, serif",
@@ -579,7 +584,7 @@ export default function CreativeCapabilitiesSection() {
 
             {/* Line 3 — "in the World at your age" */}
             <div
-              className="mt-14"
+              className="mt-14 world-text-container"
               style={{
                 overflow: 'hidden',
                 lineHeight: 0,
@@ -587,6 +592,7 @@ export default function CreativeCapabilitiesSection() {
               }}
             >
               <h2
+                className="headline-text"
                 style={{
                   fontFamily: "'Cormorant Garamond', Georgia, serif",
                   fontSize: 'clamp(34px, 4.8vw, 62px)',
@@ -612,7 +618,7 @@ export default function CreativeCapabilitiesSection() {
 
           {/* Subline — powered by + cycling word */}
           <div
-            className="mt-12"
+            className="mt-12 powered-by-container"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -625,6 +631,7 @@ export default function CreativeCapabilitiesSection() {
             }}
           >
             <span
+              className="powered-by-text"
               style={{
                 fontFamily: "'DM Sans', sans-serif",
                 fontSize: 'clamp(14px, 1.6vw, 18px)',
@@ -640,6 +647,7 @@ export default function CreativeCapabilitiesSection() {
               · For Future
             </span>
             <span
+              className="cycling-word"
               style={{
                 fontFamily: "'Cormorant Garamond', Georgia, serif",
                 fontSize: 'clamp(16px, 1.8vw, 22px)',
@@ -665,6 +673,7 @@ export default function CreativeCapabilitiesSection() {
         {/* RIGHT */}
         <div
           ref={rightIllRef}
+          className="right-illustration"
           style={{
             height: '340px',
             display: 'flex',
@@ -685,6 +694,86 @@ export default function CreativeCapabilitiesSection() {
         @keyframes pdot {
           0%,100% { box-shadow: 0 0 0 2px rgba(240,78,35,0.15); }
           50%      { box-shadow: 0 0 0 5px rgba(240,78,35,0.05); }
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+          .creative-capabilities-section {
+            padding: 60px 0 70px !important;
+          }
+
+          .content-grid {
+            grid-template-columns: 1fr !important;
+            padding: 0 20px !important;
+            gap: 0 !important;
+          }
+
+          .left-illustration,
+          .right-illustration {
+            display: none !important;
+          }
+
+          .badge-container {
+            margin-bottom: 20px !important;
+          }
+
+          .headline-text {
+            font-size: clamp(28px, 8vw, 40px) !important;
+          }
+
+          .top-one-container {
+            margin: 0 0 4px !important;
+          }
+
+          .top-one-text {
+            font-size: clamp(56px, 18vw, 90px) !important;
+          }
+
+          .world-text-container {
+            margin-top: 8px !important;
+            margin-bottom: 6px !important;
+          }
+
+          .powered-by-container {
+            flex-direction: column !important;
+            gap: 8px !important;
+            margin-top: 24px !important;
+            margin-bottom: 24px !important;
+          }
+
+          .powered-by-text {
+            font-size: clamp(13px, 3.5vw, 16px) !important;
+            text-align: center !important;
+          }
+
+          .cycling-word {
+            font-size: clamp(15px, 4vw, 20px) !important;
+            min-width: auto !important;
+            text-align: center !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .creative-capabilities-section {
+            padding: 50px 0 60px !important;
+          }
+
+          .content-grid {
+            padding: 0 16px !important;
+          }
+
+          .badge-container {
+            padding: 4px 10px !important;
+            margin-bottom: 16px !important;
+          }
+
+          .headline-text {
+            font-size: clamp(24px, 7vw, 32px) !important;
+          }
+
+          .top-one-text {
+            font-size: clamp(48px, 16vw, 72px) !important;
+          }
         }
       `}</style>
     </section>

@@ -14,7 +14,7 @@ function AnimatedCounter() {
   useEffect(() => {
     if (!isInView) return
 
-    const finalCount = 120
+    const finalCount = 130
     const duration = 2 // seconds
     const steps = 60
     const increment = finalCount / steps

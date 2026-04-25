@@ -272,44 +272,32 @@ export const TestimonialSlider = ({
                   </button>
                 )}
 
-                {/* Outcomes Section - Always rendered for consistent height */}
-                <div className="mt-6 max-h-32 overflow-hidden opacity-100">
-                  <p className="mb-2 font-medium">Outcomes</p>
+          {/* Outcomes Section - render ONLY if data exists */}
+{/* Outcomes Section - always reserve space */}
+<div className="mt-6 min-h-[120px]">
+  <p className="mb-2 font-medium">
+    {activeReview?.outcomes?.length ? "Outcomes" : ""}
+  </p>
 
-                  <div className="overflow-x-auto">
-                    <div className="flex scale-75 gap-4 pb-2 md:scale-100">
-                      {(activeReview?.outcomes &&
-                      activeReview.outcomes.length > 0
-                        ? activeReview.outcomes
-                        : [
-                            {
-                              image:
-                                'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="64" height="64"%3E%3Crect fill="%23e5e7eb" width="64" height="64"/%3E%3C/svg%3E',
-                              label: 'Placeholder',
-                            },
-                            {
-                              image:
-                                'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="64" height="64"%3E%3Crect fill="%23e5e7eb" width="64" height="64"/%3E%3C/svg%3E',
-                              label: 'Placeholder',
-                            },
-                          ]
-                      ).map((item, idx) => (
-                        <div
-                          key={idx}
-                          className="group flex shrink-0 cursor-pointer flex-col items-center"
-                          onClick={() => setZoomedImage(item.image)}
-                        >
-                          <img
-                            src={item.image}
-                            alt={item.label}
-                            className="h-16 w-16 rounded-md object-cover shadow-md transition group-hover:opacity-80"
-                          />
-                          <span className="mt-1 text-xs">{item.label}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+  <div className="overflow-x-auto">
+    <div className="flex scale-75 gap-4 pb-2 md:scale-100">
+      {activeReview?.outcomes?.map((item, idx) => (
+        <div
+          key={idx}
+          className="group flex shrink-0 cursor-pointer flex-col items-center"
+          onClick={() => setZoomedImage(item.image)}
+        >
+          <img
+            src={item.image}
+            alt={item.label}
+            className="h-16 w-16 rounded-md object-cover shadow-md transition group-hover:opacity-80"
+          />
+          <span className="mt-1 text-xs">{item.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>  
               </motion.div>
             </AnimatePresence>
           </div>

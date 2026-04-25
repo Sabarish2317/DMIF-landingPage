@@ -43,7 +43,7 @@ const leftFeatures: FeatureItemProps[] = [
   {
     title: 'Innovative Thinking',
     description:
-      'Develop the academic rigor, leadership mindset, and personal discipline required to compete for admission to Ivy & Top Universities.',
+      'Cultivate creative problem-solving, out-of-the-box thinking, and innovation skills to turn ideas into impactful solutions.',
     color: 'bg-[#FF7039]',
     textColor: 'text-[#4B1500]',
     descColor: 'text-[#502514]',
