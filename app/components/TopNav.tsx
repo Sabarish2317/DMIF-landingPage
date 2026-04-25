@@ -130,12 +130,7 @@ export default function TopNav() {
             >
               Home
             </Link>
-            <Link
-              href="/hall-of-fame"
-              className="text-md font-medium text-black/80 hover:text-black"
-            >
-              Hall of Fame
-            </Link>
+           
             <div
               className="relative"
               onMouseEnter={openPrograms}
@@ -145,7 +140,7 @@ export default function TopNav() {
                 onClick={() => setIsProgramsOpen((prev) => !prev)}
                 onFocus={openPrograms}
                 onBlur={closeProgramsWithDelay}
-                className="text-md inline-flex cursor-pointer items-center gap-1 font-medium text-black/80 transition-colors hover:text-[#FA773A]"
+                className="text-md mr-5 inline-flex cursor-pointer items-center gap-1 font-medium text-black/80 transition-colors hover:text-[#FA773A]"
                 type="button"
                 aria-expanded={isProgramsOpen}
                 aria-haspopup="menu"
@@ -153,6 +148,12 @@ export default function TopNav() {
                 Programs
                 <ChevronDown className="h-4 w-4" />
               </button>
+               <Link
+              href="/hall-of-fame"
+              className="text-md font-medium text-black/80 hover:text-black"
+            >
+              Hall of Fame
+            </Link>
 
               {isProgramsOpen && (
                 <div

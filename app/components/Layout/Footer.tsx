@@ -138,6 +138,9 @@ export default function Footer() {
                 © {currentYear} DMIF. All rights reserved. |{' '}
                 <span className="text-white/40">Designed & Developed with ❤️</span>
               </p>
+              <p className="mt-2">
+                Contact: <a className="text-white hover:text-white/80 transition-colors" href="mailto:madhan@drmadhan.org">madhan@drmadhan.org</a>
+              </p>
             </div>
 
 <div className="flex gap-4 sm:gap-6 items-center">

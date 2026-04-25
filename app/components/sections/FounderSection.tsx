@@ -72,10 +72,10 @@ export default function FounderSection() {
         {/* === CENTER DETAILS === */}
         <div className="flex flex-col justify-between border-t border-white/30 p-6 md:col-span-6 md:border-t-0 md:border-l md:p-10">
           <p className="text-base leading-relaxed md:text-2xl">
-            Inventor of <strong>121 Patents</strong> | TEDx Speaker | Accenture
+            Inventor of <strong>136 Patents</strong> | 3-times TEDx Speaker | Accenture
             Prolific Inventor & Infosys Cloud Tech Guru awardee | Cloud AI &
             Futuristic Tech Expert | Serial Entrepreneur with{' '}
-            <strong>20+ years</strong> of experience &{' '}
+            <strong>23+ years</strong> of experience &{' '}
             <strong>30+ research publications</strong>
           </p>
 
@@ -83,7 +83,7 @@ export default function FounderSection() {
             <h3 className="text-xl font-semibold">
               Dr. Madhan Kumar Srinivasan
             </h3>
-            <p className="text-sm opacity-90">CEO</p>
+            <p className="text-sm opacity-90">Chief Mentor & CEO</p>
           </div>
         </div>
 
@@ -91,35 +91,35 @@ export default function FounderSection() {
         <div className="flex flex-col justify-between border-t border-white/30 p-6 md:col-span-3 md:border-t-0 md:border-l md:p-8">
           {/* Social Icons */}
           <div className="flex gap-3 md:justify-end">
-            <a href="https://linkedin.com" target="_blank">
+            <a href="https://www.linkedin.com/in/drmadhaniimcal/" target="_blank">
               <div className="rounded-md bg-white p-2 text-[#FD4F0C] transition hover:scale-110">
                 <Linkedin size={18} />
               </div>
             </a>
 
-            <a href="mailto:example@gmail.com">
+            <a href="mailto:madhan@drmadhan.org " target="_blank">
               <div className="rounded-md bg-white p-2 text-[#FD4F0C] transition hover:scale-110">
                 <Mail size={18} />
               </div>
             </a>
 
-            <a href="https://instagram.com" target="_blank">
+            <a href="https://www.instagram.com/madhankrs/" target="_blank">
               <div className="rounded-md bg-white p-2 text-[#FD4F0C] transition hover:scale-110">
                 <Instagram size={18} />
               </div>
             </a>
 
-            <a href="https://youtube.com" target="_blank">
+            <a href="https://www.youtube.com/@MadhanKumarSrinivasan" target="_blank">
               <div className="rounded-md bg-white p-2 text-[#FD4F0C] transition hover:scale-110">
                 <Youtube size={18} />
               </div>
             </a>
 
-            <a href="https://facebook.com" target="_blank">
+            {/* <a href="https://facebook.com" target="_blank">
               <div className="rounded-md bg-white p-2 text-[#FD4F0C] transition hover:scale-110">
                 <Facebook size={18} />
               </div>
-            </a>
+            </a> */}
           </div>
 
           <div className="hidden md:block">

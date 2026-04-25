@@ -24,13 +24,13 @@ const instituteSectionData = {
     {
       title: 'Location',
       description:
-        'Fully online with global reach open to students from India, the US, Europe, Australia and beyond.',
+        'Fully online with a global reach, accessible to students worldwide, offering flexible learning, diverse international perspectives, and opportunities for cross-cultural collaboration.',
       icon: '/icons/location.svg',
     },
     {
       title: 'Achievements',
       description:
-        'DMIF learners have published in IEEE, Springer, ACM, filed patents, and built strong portfolios for Ivy League admissions.',
+        'DMIF learners have published papers in IEEE, Springer, ACM digital libraries, filed global patents, and built strong portfolios for global university admissions and research careers',
       icon: '/icons/trophy.svg',
     },
   ],

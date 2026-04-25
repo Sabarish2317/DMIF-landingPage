@@ -102,7 +102,7 @@ export default function Brain() {
             <Button variant="outline" onClick={handleScrollToCTA}>
               Book a Meet
             </Button>
-            <Button variant="fill" className="bg-[#fd4f0c]! text-white!">
+            <Button variant="fill" onClick={handleScrollToCTA} className="bg-[#fd4f0c]! text-white!">
               Get Started →
             </Button>
           </motion.div>

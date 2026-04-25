@@ -113,7 +113,7 @@ export default function KeyProgramFeatures() {
     <section className="flex h-max w-full flex-col items-center gap-8 overflow-hidden bg-white py-12 pb-16 md:pb-12">
       {/* Header */}
       <div className="flex w-max flex-col items-center justify-center gap-3 self-center-safe text-center">
-        <Header text="Our Institute" />
+        <Header text="Our Unique Edge" />
         <h2 className="font-inter text-2xl font-semibold tracking-tight text-[#1e1e1e]">
           Key Program Features
         </h2>
