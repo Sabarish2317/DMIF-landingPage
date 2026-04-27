@@ -546,7 +546,7 @@ export default function CreativeCapabilitiesSection() {
                   transition: `opacity 0.01s, transform 0.82s cubic-bezier(0.16,1,0.3,1) ${d(60)}`,
                 }}
               >
-                We make you
+                We Build
               </h2>
             </div>
 
@@ -608,9 +608,9 @@ export default function CreativeCapabilitiesSection() {
                   transition: `opacity 0.01s, transform 0.82s cubic-bezier(0.16,1,0.3,1) ${d(230)}`,
                 }}
               >
-                in the World{' '}
+                At Every Age
                 <span style={{ color: '#c4c4c4', fontStyle: 'italic' }}>
-                  at your age
+                  {/* At Every Age */}
                 </span>
               </h2>
             </div>

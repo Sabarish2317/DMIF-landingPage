@@ -139,7 +139,7 @@ export default function Footer() {
                 <span className="text-white/40">Designed & Developed with ❤️</span>
               </p>
               <p className="mt-2">
-                Contact: <a className="text-white hover:text-white/80 transition-colors" href="mailto:madhan@drmadhan.org">madhan@drmadhan.org</a>
+                Contact: <a className="text-white hover:text-white/80 transition-colors" href="mailto:reach@drmadhan.org">reach@drmadhan.org</a>
               </p>
             </div>
 
