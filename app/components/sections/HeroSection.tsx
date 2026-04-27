@@ -3,11 +3,13 @@
 import React from 'react'
 import Button from '@/app/components/Button'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { motion, Variants } from 'framer-motion'
 import { useScreenSize } from '@/app/hooks/useScreenSize'
+import { useAnnouncement } from '@/app/hooks/useAnnouncement'
 
 export default function Brain() {
   const { screenSize } = useScreenSize()
+  const { announcement, loading } = useAnnouncement()
 
   const handleScrollToCTA = () => {
     const ctaSection = document.getElementById('contact')
@@ -18,6 +20,11 @@ export default function Brain() {
 
   const heroImageSrc =
     screenSize === 'mobile' ? '/hero-section-sm.svg' : '/hero-section.svg'
+
+  // Show announcement badge only if type is "announcement"
+  const showAnnouncementBadge = announcement && announcement.type === 'news'
+  // Use "Our Vision" as fallback text if type is "constant"
+  const displayLabel = showAnnouncementBadge ? 'Announcement' : 'Our Vision'
 
   // Animation variants
   const headingVariants = {
@@ -40,6 +47,18 @@ export default function Brain() {
     animate: { opacity: 1 },
   }
 
+const marqueeVariants: Variants = {
+  animate: {
+    x: ["0%", "-100%"],
+    transition: {
+      duration: 15,
+      repeat: Infinity,
+      repeatType: "loop",
+      ease: "linear",
+    },
+  },
+};
+
   const transitionConfig = {
     type: 'spring',
     stiffness: 100,
@@ -53,20 +72,40 @@ export default function Brain() {
         {/* Left content */}
         <section className="z-15 flex w-full flex-col items-start justify-between gap-4 sm:gap-6 md:max-w-xl">
           {/* Announcement */}
-          <motion.div
-            initial={bottomToTopVariants.initial}
-            animate={bottomToTopVariants.animate}
-            transition={{ ...transitionConfig, delay: 0.2 }}
-            className="flex w-max max-w-sm cursor-pointer flex-row items-center gap-4 overflow-hidden rounded-md bg-white pr-4 sm:max-w-95 md:w-full"
-          >
-            <span className="z-15 shrink-0 rounded-md bg-[#2b2b2b] px-3 py-2.5 text-xs font-medium tracking-wide text-white ring ring-[#2b2b2b] sm:text-sm">
-              Announcement
-            </span>
+          {announcement && (
+            <motion.div
+              initial={bottomToTopVariants.initial}
+              animate={bottomToTopVariants.animate}
+              transition={{ ...transitionConfig, delay: 0.2 }}
+className="flex items-center gap-3 overflow-hidden rounded-md w-full bg-white " 
+            >
+              <span className="z-15 shrink-0 rounded-md bg-[#2b2b2b] px-3 py-2.5 text-xs font-medium tracking-wide text-white ring ring-[#2b2b2b] sm:text-sm">
+                {displayLabel}
+              </span>
 
-            <div className="relative z-12 w-max min-w-max overflow-hidden text-sm font-medium tracking-wide whitespace-nowrap text-[#1e1e1e] sm:text-base md:w-full">
-              We are in IIT Madras
-            </div>
-          </motion.div>
+         <div className="relative overflow-hidden flex-1 min-w-0">
+  <motion.div
+    animate={{ x: ["0%", "-50%"] }}
+    transition={{
+      duration: 15,
+      repeat: Infinity,
+      ease: "linear",
+    }}
+    className="flex whitespace-nowrap will-change-transform"
+  >
+    {/* First copy */}
+    <span className="mr-8">
+      {announcement.message}
+    </span>
+
+    {/* Second copy (IMPORTANT) */}
+    <span className="mr-8">
+      {announcement.message}
+    </span>
+  </motion.div>
+</div>
+            </motion.div>
+          )}
           {/* Heading */}
           <motion.h1
             style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
