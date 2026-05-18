@@ -155,6 +155,9 @@ export default function CodingProgram() {
           <span className="text-xs font-semibold tracking-[0.35em] text-[#FD4F0C] uppercase">
             DMIF G-CMP
           </span>
+          <h2 className="mt-6 text-2xl leading-tight font-bold text-white sm:text-3xl md:text-4xl">
+            Global Coding Mentorship Program
+          </h2>
           <h1 className="mt-4 text-3xl leading-tight font-bold text-white sm:text-4xl md:text-5xl">
             Build first. Learn next. Master forever.
           </h1>

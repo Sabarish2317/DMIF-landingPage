@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import { ChevronDown, Menu, X } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Button from './Button'
@@ -10,11 +11,28 @@ import { useScreenSize } from '@/app/hooks/useScreenSize'
 
 export default function TopNav() {
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const pathname = usePathname()
   const [isProgramsOpen, setIsProgramsOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMobileProgramsOpen, setIsMobileProgramsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const { padding } = useScreenSize()
+
+  const isActive = (href: string) => {
+    return pathname === href || pathname.startsWith(`${href}/`)
+  }
+
+  const navLinkClassName = (href: string) =>
+    `text-md font-medium transition-colors ${
+      isActive(href) ? 'text-orange-500' : 'text-black/80 hover:text-black'
+    }`
+
+  const mobileLinkClassName = (href: string) =>
+    `border-b border-slate-200 px-4 py-3 text-sm font-medium transition-colors ${
+      isActive(href)
+        ? 'text-orange-500'
+        : 'text-black/80 hover:bg-slate-50 hover:text-black'
+    }`
 
   const openPrograms = () => {
     if (closeTimerRef.current) {
@@ -124,13 +142,13 @@ export default function TopNav() {
 
           {/* Desktop Navigation */}
           <div className="ml-auto hidden items-center gap-8 lg:flex">
-            <Link
-              href="/"
-              className="text-md font-medium text-black/80 hover:text-black"
-            >
+            <Link href="/" className={navLinkClassName('/')}>
               Home
             </Link>
-           
+            <Link href="/brain-gym" className={navLinkClassName('/brain-gym')}>
+              Brain Gym
+            </Link>
+
             <div
               className="relative"
               onMouseEnter={openPrograms}
@@ -148,12 +166,12 @@ export default function TopNav() {
                 Programs
                 <ChevronDown className="h-4 w-4" />
               </button>
-               <Link
-              href="/hall-of-fame"
-              className="text-md font-medium text-black/80 hover:text-black"
-            >
-              Hall of Fame
-            </Link>
+              <Link
+                href="/hall-of-fame"
+                className={navLinkClassName('/hall-of-fame')}
+              >
+                Hall of Fame
+              </Link>
 
               {isProgramsOpen && (
                 <div
@@ -195,7 +213,11 @@ export default function TopNav() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="line-clamp-1 text-xs font-medium text-black/80 transition-colors hover:text-black sm:text-sm"
+                  className={`line-clamp-1 text-xs font-medium transition-colors sm:text-sm ${
+                    isActive(link.href)
+                      ? 'text-orange-500'
+                      : 'text-black/80 hover:text-black'
+                  }`}
                 >
                   {link.label}
                 </Link>
@@ -236,14 +258,21 @@ export default function TopNav() {
             {/* Mobile Navigation Links */}
             <Link
               href="/"
-              className="border-b border-slate-200 px-4 py-3 text-sm font-medium text-black/80 hover:bg-slate-50"
+              className={mobileLinkClassName('/')}
               onClick={closeMobileMenu}
             >
               Home
             </Link>
             <Link
+              href="/brain-gym"
+              className={mobileLinkClassName('/brain-gym')}
+              onClick={closeMobileMenu}
+            >
+              Brain Gym
+            </Link>
+            <Link
               href="/hall-of-fame"
-              className="border-b border-slate-200 px-4 py-3 text-sm font-medium text-black/80 hover:bg-slate-50"
+              className={mobileLinkClassName('/hall-of-fame')}
               onClick={closeMobileMenu}
             >
               Hall of Fame
